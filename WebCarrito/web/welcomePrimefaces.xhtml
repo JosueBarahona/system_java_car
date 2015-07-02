@@ -9,7 +9,7 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>PrimeFaces</title>
+                <title>Carrito de Compra</title>
             </f:facet>
         </h:head>
 
@@ -17,29 +17,45 @@
 
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Header
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true" style=" background: #66ccff">
+                    <center>Encabezado</center>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
-                    Footer
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true" style=" background: #66ccff">
+                    <font size="-1">
+                        <center>
+                            &reg;WebCarrito<br/>
+                            Un proyecto realizado por ???? para tarea de JAVA<br/>
+                            Todos los Derechos Reservados, Prohibida la reproducción parcial o total de este sitio.<br/>
+                            Art. 139 Código de comercio y Art. 213 Ley de Derechos de Autor :-p   JAJAJAJA                            
+                        </center>
+                    </font> 
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                <p:layoutUnit position="west" size="235" header="Left" collapsible="true">
                     <p:menu>
-                        <p:submenu label="Resources">
-                            <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
-                            <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
-                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
-                            <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
+                        <p:submenu label="Enlaces">
+                            <p:menuitem value="PrimeFaces" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
+                            <p:menuitem value="Productos" url="" />
+                            <p:menuitem value="Reportes" url="" />
+                            <p:menuitem value="FAQ" url="" />
 
                         </p:submenu>
 
                     </p:menu>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="center">
-                    Welcome to PrimeFaces
+                <p:layoutUnit position="center" style=" background: #66ccff ">
+                    <center>BIENVENIDOS AL CARRITO DE COMPRAS</center>
+                    <br/><br/><br/>
+                    <!--INICIO Para caja de dialogo o informacion-->
+                    <center><p:commandButton value="Informacion" type="button" onclick="PF('dlg3').show();"  /> </center>
+                    <p:dialog header="Con Efecto" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="130">
+                        <h:outputText value="Algunos ejemplos de cuadros de dialogo que se pudieran utilizar.&lt;br/&gt;&lt;br/&gt;" escape="false" />
+                        <h:outputText value="http://www.primefaces.org/showcase/ui/overlay/dialog/basic.xhtml &lt;br/&gt;&lt;br/&gt;" escape="false" />
+                        <h:outputText value="Esa es la dirección de estos cuadros de diálogo." escape="false" />
+                    </p:dialog>
+                    <!--FIN Para caja de dialogo o informacion-->
                 </p:layoutUnit>
 
             </p:layout>
