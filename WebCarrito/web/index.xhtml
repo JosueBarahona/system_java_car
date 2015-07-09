@@ -1,14 +1,82 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='UTF-8' ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
-    </h:body>
-</html>
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.ico" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>.:: &nbsp;&nbsp;Carrito Web Java&nbsp;&nbsp; ::.</title>
+    </h:head>
+
+    <h:body>
+
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--/////////////////////////////////////////Llamada Al Top///////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        
+        <div id="top">
+            <ui:insert name="top" >
+                <ui:include src="/resources/top.xhtml"/>
+            </ui:insert>
+        </div>
+
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--///////////////////////////////////Llamada Al Contenido///////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+
+        <div id="content" class="center_content">
+            <ui:insert name="content">
+                <!--Inicio de estructuracion de contenido-->
+                <!--Inicio de estructuracion de contenido-->
+                <!--Inicio de estructuracion de contenido-->
+                <!--Inicio de estructuracion de contenido-->
+                <table width="1080px" border="0" align="center"  >
+                    <td height="450px">
+                    
+                    
+                    <!--INICIO Para caja de dialogo o informacion-->
+                    <center><p:commandButton value="Informacion" type="button" onclick="PF('dlg3').show();"  /> </center><!--Boton-->
+                    <p:dialog header="Con Efecto" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="130">
+                        <h:outputText value="Algunos ejemplos de cuadros de dialogo que se pudieran utilizar.&lt;br/&gt;&lt;br/&gt;" escape="false" />
+                        <h:outputText value="http://www.primefaces.org/showcase/ui/overlay/dialog/basic.xhtml &lt;br/&gt;&lt;br/&gt;" escape="false" />
+                        <h:outputText value="Esa es la dirección de estos cuadros de diálogo." escape="false" />
+                    </p:dialog>
+                    <!--FIN Para caja de dialogo o informacion-->
+                        
+                                            
+                    </td>
+                </table>     
+                <!--Fin de estructuracion de contenido-->
+                <!--Fin de estructuracion de contenido-->
+                <!--Fin de estructuracion de contenido-->
+                <!--Fin de estructuracion de contenido-->
+            </ui:insert>
+        </div>
+
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--///////////////////////////////////Llamada Al Bottom//////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        
+   
+        <div id="bottom">
+            <ui:insert name="bottom">
+                <ui:include src="/resources/bottom.xhtml"/>
+            </ui:insert>
+        </div>
+
+     
+        
+    </h:body>
+
+</html>
