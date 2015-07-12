@@ -20,7 +20,7 @@
         <!--/////////////////////////////////////////Llamada Al Top///////////////////////////////////-->
         <!--//////////////////////////////////////////////////////////////////////////////////////////-->
         <!--//////////////////////////////////////////////////////////////////////////////////////////-->
-        
+
         <div id="top">
             <ui:insert name="top" >
                 <ui:include src="/resources/top.xhtml"/>
@@ -41,18 +41,33 @@
                 <!--Inicio de estructuracion de contenido-->
                 <table width="1080px" border="0" align="center"  >
                     <td height="450px">
-                    
-                    
-                    <!--INICIO Para caja de dialogo o informacion-->
-                    <center><p:commandButton value="Informacion" type="button" onclick="PF('dlg3').show();"  /> </center><!--Boton-->
-                    <p:dialog header="Con Efecto" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="130">
-                        <h:outputText value="Algunos ejemplos de cuadros de dialogo que se pudieran utilizar.&lt;br/&gt;&lt;br/&gt;" escape="false" />
-                        <h:outputText value="http://www.primefaces.org/showcase/ui/overlay/dialog/basic.xhtml &lt;br/&gt;&lt;br/&gt;" escape="false" />
-                        <h:outputText value="Esa es la dirección de estos cuadros de diálogo." escape="false" />
-                    </p:dialog>
-                    <!--FIN Para caja de dialogo o informacion-->
-                        
-                                            
+
+                        <h:form>
+                            <!--INICIO Para caja de dialogo o informacion-->
+                            <center><p:commandButton value="Información" type="button" onclick="PF('dlg3').show();"  /> </center><!--Boton-->
+                            <p:dialog header="Con Efecto" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="130">
+                                <h:outputText value="Algunos ejemplos de cuadros de diálogo que se pudieran utilizar.&lt;br/&gt;&lt;br/&gt;" escape="false" />
+                                <h:outputText value="http://www.primefaces.org/showcase/ui/overlay/dialog/basic.xhtml &lt;br/&gt;&lt;br/&gt;" escape="false" />
+                                <h:outputText value="Esa es la dirección de estos cuadros de diálogo." escape="false" />
+                            </p:dialog>
+                            <!--FIN Para caja de dialogo o informacion-->
+
+                            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+                            <!--INICIO Para botón de confirm-->                        
+                            <p:growl id="message" showDetail="true" />
+                            <center>
+                                <p:commandButton value="Destruir el Mundo?" actionListener="#{dialogView.destroyWorld}" update="message">
+                                    <p:confirm header="Confirmar" message="Estás seguro?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </center>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>  
+                            <!--FIN Para botón de confirm-->     
+                        </h:form>
+
                     </td>
                 </table>     
                 <!--Fin de estructuracion de contenido-->
@@ -67,16 +82,16 @@
         <!--///////////////////////////////////Llamada Al Bottom//////////////////////////////////////-->
         <!--//////////////////////////////////////////////////////////////////////////////////////////-->
         <!--//////////////////////////////////////////////////////////////////////////////////////////-->
-        
-   
+
+
         <div id="bottom">
             <ui:insert name="bottom">
                 <ui:include src="/resources/bottom.xhtml"/>
             </ui:insert>
         </div>
 
-     
-        
+
+
     </h:body>
 
 </html>

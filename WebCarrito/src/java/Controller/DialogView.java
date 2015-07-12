@@ -13,7 +13,7 @@ import org.primefaces.event.CloseEvent;
 public class DialogView {
  
     public void destroyWorld() {
-        addMessage("System Error", "solo estamos probando esta cosa");
+        addMessage("Error del Sistema!", "No se pudo destruir el mundo, vuelva a intentarlo mas tarde.");
     }
      
     public void addMessage(String summary, String detail) {
