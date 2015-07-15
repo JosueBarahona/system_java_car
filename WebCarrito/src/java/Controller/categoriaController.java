@@ -10,8 +10,10 @@ import Entidades.TCategorias;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
@@ -38,6 +40,14 @@ public class categoriaController {
     //////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////
     static TCategorias itemSeleccionado;
+
+    public TCategorias getItemNuevo() {
+        return itemNuevo;
+    }
+
+    public void setItemNuevo(TCategorias itemNuevo) {
+        this.itemNuevo = itemNuevo;
+    }
     
     public TCategorias getItemSeleccionado(){
         if(itemSeleccionado == null){
@@ -100,5 +110,28 @@ public class categoriaController {
     public void init(){//metodo init que se ejecuta
         buscar();//Carga los datos de fondo una vez iniciado el facelet
     }
+    public String agregar(){
+        try{
+            System.out.println("Categoria: " + itemNuevo.getNombreCategoria());
+               categoriaDAO.persist(itemNuevo);
+               itemNuevo = new TCategorias();
+       save(); //Mensaje de Datos Guardados
+            
+                
+            
+        }catch(Exception e){
+            error();
+            System.out.println("Error"+e.getMessage());
+        }
+        return "";
+    }
+     public void error(){
+      FacesContext context = FacesContext.getCurrentInstance();
+      context.addMessage(null, new FacesMessage("Mensaje","Datos no guardados, error en contraseña posiblemente"));
+    }
     
-}
+    public void save(){
+      FacesContext context = FacesContext.getCurrentInstance();
+      context.addMessage(null, new FacesMessage("Mensaje","Datos Guardados con exito"));
+    }
+    }
