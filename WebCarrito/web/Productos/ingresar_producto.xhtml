@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.ico" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>.:: &nbsp;&nbsp;Carrito Web Java&nbsp;&nbsp; ::.</title>
+
+        <script>
+            function cargar() {
+
+            }
+        </script>
+    </h:head>
+
+
+    <h:body>
+
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--/////////////////////////////////////////Llamada Al Top///////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+
+        <div id="top">
+            <ui:insert name="top" >
+                <ui:include src="/resources/top.xhtml"/>
+            </ui:insert>
+        </div>
+
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--///////////////////////////////////Llamada Al Contenido///////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+
+        <div id="content" class="center_content">
+            <ui:insert name="content">
+                <!--Inicio de estructuracion de contenido-->
+                <!--Inicio de estructuracion de contenido-->
+                <!--Inicio de estructuracion de contenido-->
+                <!--Inicio de estructuracion de contenido-->
+                <table width="90%" border="0" align="center" style="max-width: 1080px; min-width: 850px" >
+                    <td>
+
+                        <h:form id="formulario">
+                            <p:growl id="growl" showDetail="true" /><!-- Esto es para los globitos -->
+                            <center>
+                                <p:focus context="panel1"/>
+                                <p:panelGrid id="panel1" columns="2" style="width: 750px; border-style:  solid; "  >  
+
+
+                                    <f:facet name="header">                                                                  
+                                        <font size="2">
+                                            Nuevo Producto
+                                        </font>
+                                    </f:facet>  
+
+
+                                    <div align="right" >Nombre Producto:</div> 
+                                    <p:inputText id="nombre" value="" label="Nombre" size="35" requiredMessage="Ingrese un nombre" required="true" tabindex="1"  />  
+
+                                    <div align="right" >Descripción del Producto:</div> 
+                                    <p:inputTextarea rows="2" cols="35" id="descripcion" value=""  label="Descripción" required="true" tabindex="2" />
+
+
+                                    <div align="right" >Categoria:</div>   
+                                    <h:selectOneMenu id="cat2" immediate="true" rendered="true" label="Categoria" validatorMessage="Debe Seleccionar una Categoria" value="#{categoriaController.itemSeleccionado.idCategoria}" tabindex="3">
+                                        <f:selectItems value="#{categoriaController.listaCategoria}" var="cuenta1" itemLabel="#{cuenta1.nombreCategoria}" itemValue="#{cuenta1.idCategoria}"/>
+                                        <f:ajax event="valueChange" listener="#{categoriaController.buscar()}" render="cat2" execute="@this"/>
+                                    </h:selectOneMenu>
+                                    
+                                    <div align="right" >Proveedor:</div>   
+                                    <h:selectOneMenu id="cat3" immediate="true" rendered="true" label="Categoria" validatorMessage="Debe Seleccionar una Categoria" value="#{categoriaController.itemSeleccionado.idCategoria}" tabindex="4">
+                                        <f:selectItems value="#{categoriaController.listaCategoria}" var="cuenta1" itemLabel="#{cuenta1.nombreCategoria}" itemValue="#{cuenta1.idCategoria}"/>
+                                        <f:ajax event="valueChange" listener="#{categoriaController.buscar()}" render="cat3" execute="@this"/>
+                                    </h:selectOneMenu>
+
+                                    <div align="right" >Precio de Venta:</div>                                     
+                                    <p:inputMask mask="99999.99" id="precio" label="precio" size="15" required="true" requiredMessage="Ingrese Precio de Venta" value="" tabindex="5" />
+                                    
+                                    <div align="right" >Cantidad Inicial:</div>                                     
+                                    <p:inputMask mask="9999999" id="cantidad" label="cantidad" size="15" required="true" requiredMessage="Ingrese Cantidad Inicial" value="" tabindex="6" />
+                                    
+                                    <div align="right" >Seleccione Imagen:</div>                                     
+                                    <p:fileUpload mode="advanced" label="Seleccionar Imagen" update="img" style="width: 183px; height: 65px"                                                    
+                                                  allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/"
+                                                  auto="true" />
+                                    
+                                    
+                                    <div align="right" >Imagen Seleccionada:</div>       
+                                    <h:graphicImage id="img" url="" height="160" width="190"/>
+                                    
+                                                                                       
+                                    <f:facet name="footer">
+                                        <p:row>
+                                            <h:commandButton id="btnEnviar"
+                                                             
+                                                             value="Guardar" onclick="return confirm('Desea Guardar?')"
+                                                             style=" height: 30px; font-size: 13px; margin: 2px; padding: 2px 10px 2px 10px; 
+                                                             animation: normal; cursor: pointer; border: 1px solid #aaa " >
+                                                <f:ajax execute="@all" render="@form"/>
+                                            </h:commandButton>
+                                        </p:row>
+                                    </f:facet>  
+
+                                </p:panelGrid>  
+
+                            </center>                        
+                        </h:form>
+
+                    </td>
+                </table>     
+                <!--Fin de estructuracion de contenido-->
+                <!--Fin de estructuracion de contenido-->
+                <!--Fin de estructuracion de contenido-->
+                <!--Fin de estructuracion de contenido-->
+            </ui:insert>
+        </div>
+
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--///////////////////////////////////Llamada Al Bottom//////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+        <div id="bottom">
+            <ui:insert name="bottom">
+                <ui:include src="/resources/bottom.xhtml"/>
+            </ui:insert>
+        </div>
+
+    </h:body>
+
+</html>
