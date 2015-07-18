@@ -65,6 +65,7 @@ public class categoriaController {
     public void buscar(){
         try{
             List<TCategorias> lista = categoriaDAO.getFindAll();
+            
             ListDataModel<TCategorias> modeloListaCategoria = new ListDataModel<TCategorias>(lista);
             setListaCategoria(modeloListaCategoria);
         }catch(Exception e){

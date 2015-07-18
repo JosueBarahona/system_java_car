@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.ico" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>.:: &nbsp;&nbsp;Carrito Web Java&nbsp;&nbsp; ::.</title>
+    </h:head>
+
+    <h:body>
+
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--/////////////////////////////////////////Llamada Al Top///////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+
+        <div id="top">
+            <ui:insert name="top" >
+                <ui:include src="/resources/top.xhtml"/>
+            </ui:insert>
+        </div>
+
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--///////////////////////////////////Llamada Al Contenido///////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+
+        <div id="content" class="center_content">
+            <ui:insert name="content">
+                <!--Inicio de estructuracion de contenido-->
+                <!--Inicio de estructuracion de contenido-->
+                <!--Inicio de estructuracion de contenido-->
+                <!--Inicio de estructuracion de contenido-->
+                <table width="90%" border="0" align="center" style="max-width: 1080px; min-width: 850px" >
+                    <td>
+
+                        <h:form id="form1" enctype="multipart/form-data" prependId="false">
+                            <p:growl id="growl" showDetail="true" />  
+                            <p:fieldset legend="&nbsp;" toggleable="true" toggleSpeed="500" style="text-align: left">                                                     
+                                <p:panelGrid id="panel1" columns="2" style="width: 450px; " >  
+                                    <f:facet name="header">  
+                                        Nuevo Usuario
+                                    </f:facet>  
+
+                                    <h:outputLabel  value="Nombre Completo:" />  
+                                    <p:inputText id="nombre" value="#{usuarioController.itemNuevo.nombreUsuario}"  
+                                                 label="Nombre" size="35" requiredMessage="Ingrese un nombre" required="true" />  
+                                    <h:outputLabel  value="NickName Usuario:" />  
+                                    <p:inputText id="NickName" value="#{usuarioController.itemNuevo.nicknameUsuario}"  
+                                                 label="NickName" size="20" requiredMessage="Ingrese un nickname" required="true" />  
+                                    <h:outputLabel  value="Correo Electronico:" />  
+                                    <p:inputText id="email" value="#{usuarioController.itemNuevo.correoUsuario}"  
+                                                 label="email" size="35" requiredMessage="Ingrese el correo" required="true" />  
+                                    <h:outputLabel  value="Rol Usuario:" />  
+                                    <p:selectOneMenu id="rol" value="#{usuarioController.itemNuevo.rolUsuario}" >
+                                        <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                                        <f:selectItem itemLabel="Usuario" itemValue="Usuario"/>
+                                    </p:selectOneMenu>
+                                    <h:outputLabel  value="Contraseña:" />  
+                                    <p:password id="password" value="#{usuarioController.itemNuevo.passUsuario}" required="true" label="Password" size="20" />                                                              
+                                    <f:facet name="footer">
+                                        <p:row>
+                                            <h:commandButton id="btnEnviar"
+                                                             actionListener="#{usuarioController.agregar()}" 
+                                                             value="Guardar" onclick="return confirm('Desea Guardar?')"
+                                                             style=" height: 30px; font-size: 13px; margin: 2px; padding: 2px 10px 2px 10px; 
+                                                             animation: normal; cursor: pointer; border: 1px solid #aaa " >
+                                                <f:ajax execute="@all" render="@form"/>
+                                            </h:commandButton>
+                                            <p:commandButton type="button" value="Buscar" 
+                                                             onclick="PF('dl_buscar').show();"  
+                                                             icon="ui-icon-search" />
+
+
+                                        </p:row>
+                                    </f:facet>  
+
+                                </p:panelGrid>  
+
+                            </p:fieldset>         
+                        </h:form>
+                        <br/>
+                        <!-- INICIO CODIGO DE GRID DE BUSQUEDA -->
+                        <h:form id="form2">  
+
+                            <p:growl id="messages" showDetail="true" />
+                            <p:dialog id="modalDialogBuscar" style="text-align: left!important" header="Buscar Usuarios" widgetVar="dl_buscar" modal="false" resizable="true"
+                                      showEffect="clip" hideEffect="fold">
+                                <p:panelGrid style="width:700px">
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputLabel value="Busqueda de Usuarios por Nombre: " />    
+                                            <p:inputText value="#{usuarioController.busqueda}" label="Buscar:  " size="15">
+                                                <p:ajax event="keyup" update="usuariolist" 
+                                                        listener="#{usuarioController.buscarUsuarios()}"/>
+                                            </p:inputText>
+                                            <p:commandButton id="btnBus" value="Ver Todo" 
+                                                             update="usuariolist" action="#{usuarioController.buscar()}"/>
+                                        </p:column>
+                                    </p:row>    
+                                </p:panelGrid>
+
+                                <p:dataTable id="usuariolist" var="usuarios" editable="true" value="#{usuarioController.listaUsuarios}"
+                                             emptyMessage="No se encuentran datos"                                                                     
+                                             paginator="true" rows="8">  
+
+                                    <p:ajax event="rowEdit" listener="#{usuarioController.onEdit}" update=":form2:messages" />  
+
+                                    <p:ajax event="rowEditCancel" update=":form2:messages" />  
+
+                                    <p:column headerText="ID" style="width:20px">  
+                                        <h:outputText value="#{usuarios.idUsuario}" />
+                                    </p:column>
+
+                                    <p:column headerText="Nombre" style="width:150px">  
+                                        <p:cellEditor>  <!-- hace editable la tabla -->
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{usuarios.nombreUsuario}" />  <!-- Muestra la info -->
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{usuarios.nombreUsuario}" style="width:150px"/>  
+                                                <!-- Aparece caja de texto cuando se le da al lapiz-->
+                                            </f:facet>  
+                                        </p:cellEditor>  
+                                    </p:column>
+                                    <p:column headerText="Nick Name" style="width:150px">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{usuarios.nicknameUsuario}" />
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputText value="#{usuarios.nicknameUsuario}" style="width:150px"/>  
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>   
+
+                                    <p:column headerText="Correo Electronico" style="width:150px">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{usuarios.correoUsuario}" />
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputText value="#{usuarios.correoUsuario}" style="width:150px"/>  
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column> 
+
+                                    <p:column headerText="Rol" style="width:150px">
+                                        
+                                                <h:outputText value="#{usuarios.rolUsuario}" />
+                                            
+                                    </p:column> 
+
+                                    <p:column headerText="Password" style="width:150px">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{usuarios.passUsuario}" />
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputText value="#{usuarios.passUsuario}" style="width:150px"/>  
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column> 
+
+                                    <p:column style="width:20px">  
+                                        <p:rowEditor />  
+                                    </p:column>
+                                    <f:facet name="footer">
+                                        <p:outputPanel>
+                                            <p:commandButton id="btnBus" value="Ver Todo" update="usuariolist" action="#{usuariosController.buscar()}"/>
+                                            <p:commandButton id="dec" value="Cerrar" onclick="dl_buscar.hide()" type="button" />
+                                        </p:outputPanel>  
+                                    </f:facet>                 
+                                </p:dataTable>  
+
+                            </p:dialog>                                                                                                    
+                        </h:form>
+                    </td>
+                </table>     
+                <!--Fin de estructuracion de contenido-->
+                <!--Fin de estructuracion de contenido-->
+                <!--Fin de estructuracion de contenido-->
+                <!--Fin de estructuracion de contenido-->
+            </ui:insert>
+        </div>
+
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--///////////////////////////////////Llamada Al Bottom//////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+        <div id="bottom">
+            <ui:insert name="bottom">
+                <ui:include src="/resources/bottom.xhtml"/>
+            </ui:insert>
+        </div>
+
+
+
+    </h:body>
+
+</html>

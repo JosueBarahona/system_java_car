@@ -23,7 +23,7 @@
         <!--//////////////////////////////////////////////////////////////////////////////////////////-->
 
         <div id="top">
-            <ui:insert name="top_usu" >
+            <ui:insert name="top" >
                 <ui:include src="/resources/top.xhtml"/>
             </ui:insert>
         </div>
@@ -62,6 +62,7 @@
                                                                          label="email" size="35" requiredMessage="Ingrese el correo" required="true" />  
                                                             <h:outputLabel  value="Rol Usuario:" />  
                                                             <p:selectOneMenu id="rol" value="#{usuarioController.itemNuevo.rolUsuario}" >
+                                                                <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
                                                                 <f:selectItem itemLabel="Usuario" itemValue="Usuario"/>
                                                             </p:selectOneMenu>
                                                             <h:outputLabel  value="Contraseña:" />  

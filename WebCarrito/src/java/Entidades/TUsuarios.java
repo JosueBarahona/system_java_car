@@ -36,7 +36,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TUsuarios.findByCorreoUsuario", query = "SELECT t FROM TUsuarios t WHERE t.correoUsuario = :correoUsuario"),
     @NamedQuery(name = "TUsuarios.findByRolUsuario", query = "SELECT t FROM TUsuarios t WHERE t.rolUsuario = :rolUsuario"),
     @NamedQuery(name = "TUsuarios.findByEstadoUsuario", query = "SELECT t FROM TUsuarios t WHERE t.estadoUsuario = :estadoUsuario"),
-    @NamedQuery(name = "TUsuarios.findByPassUsuario", query = "SELECT t FROM TUsuarios t WHERE t.passUsuario = :passUsuario")})
+    @NamedQuery(name = "TUsuarios.findByPassUsuario", query = "SELECT t FROM TUsuarios t WHERE t.passUsuario = :passUsuario"),
+    @NamedQuery(name = "TUsuarios.login", query = "SELECT t FROM TUsuarios t WHERE t.nicknameUsuario = :usuario AND t.passUsuario = :password"),
+    @NamedQuery(name = "TUsuarios.buscaNombre", query = "SELECT t.nombreUsuario FROM TUsuarios t WHERE t.nicknameUsuario = :usuario AND t.passUsuario = :password"),
+    @NamedQuery(name = "TUsuarios.rol", query = "SELECT t.rolUsuario FROM TUsuarios t WHERE t.nicknameUsuario = :usuario AND t.passUsuario = :password"),
+    @NamedQuery(name = "TUsuarios.findByNombreUsuario2", query = "SELECT t FROM TUsuarios t WHERE t.nombreUsuario LIKE :nombre")
+    
+})
+
 public class TUsuarios implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

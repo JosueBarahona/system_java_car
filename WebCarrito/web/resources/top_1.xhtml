@@ -3,22 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
-    <style type="text/css">         
-        /*.ui-menuitem-text{color:white}*/
-        .ui-menu-child{background: #003333; width: 210px!important}
-        .ui-menubar{background: #003333; border: 0px solid #aed0ea !important}                 
-        .ui-menuitem-link {color: white !important;}
-    </style>
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Top</title>
     </h:head>
     <h:body>
-        <table border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#003333">
+        <table border="0" width="90%" align="center" style="display: block; max-width: 1080px; min-width: 850px">
             <tr>
                 <td height="4px" bgcolor="#279982" colspan="4"> </td>
-
             </tr>
             <tr>
                 <td height="100px" width="250px" bgcolor="#ffffff">
@@ -33,31 +25,26 @@
                 <td width="202" bgcolor="#ffffff">
                     <img src="../resources/images/logo_itca.jpg" alt="" border="0" width="202" height="100"/>                    
                 </td>
-
             </tr>
-            <table border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#003333">
-                <tr>
-                    <td width="1080px">
-                        <ezcomp:menuADMON/>
-                    </td>
-                </tr>
-            </table>
-            <table border="0" cellspacing="0" cellpadding="0" align="center">
-                <tr>
-                    <td colspan="3">
-                        <td colspan="3">
-                        </td> 
+            <tr>
+                <td colspan="2">
 
-
+                    <td colspan="2">
+                        <p:button value="Ingresar" icon="ui-icon-arrow-1-se">
+                            <f:param name="productId7" value="10" />
+                        </p:button>
+                        <p:button value="Salir" icon="ui-icon-arrow-1-se">
+                            <f:param name="productId7" value="10" />
+                        </p:button>
 
                     </td>
-                    <td colspan="3">
-                        <h:outputLabel value="USUARIO:" style="color:black"/>
-                        <h:outputLabel value="#{sessionScope.USUARIO}" style="color:black"/>
-                    </td>
-                </tr>
-            </table>
+                </td>
 
+
+                
+            
+            </tr>
+            
             <tr><td colspan="4" style=" background-image: url(../resources/images/plantilla1_1.jpg)" height="30px" ></td></tr>
         </table>
     </h:body>
