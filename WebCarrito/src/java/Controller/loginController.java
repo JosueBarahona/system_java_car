@@ -11,6 +11,7 @@ import Entidades.TCategorias;
 import Entidades.TProductos;
 import Entidades.TUsuarios;
 import Util.Util;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -28,7 +29,7 @@ import javax.servlet.http.HttpSession;
  */
 @ManagedBean
 @SessionScoped
-public class loginController {
+public class loginController implements Serializable{
 
     @EJB
     private loginDAO loginDAO;

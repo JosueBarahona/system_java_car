@@ -43,8 +43,8 @@
                     <p:separator />
                 </p:submenu>
                 <f:facet name="options">
-                    <p:outputLabel value="Usuario: Ever Murcia"/>
-                    <p:commandButton type="button" value="Cerrar Sesión" icon="ui-icon-extlink" actionListener="#{loginController.logout()}" />
+                    <p:outputLabel value="Usuario: #{sessionScope.USUARIO}"/>
+                    <p:commandButton type="button" value="Cerrar Sesión" icon="ui-icon-extlink" action="#{loginController.logout()}" />
                 </f:facet>
             </p:menubar>
         </h:form>
