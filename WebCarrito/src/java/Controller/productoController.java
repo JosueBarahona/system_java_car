@@ -40,11 +40,9 @@ public class productoController {
     private TProductos itemNuevo;//Para ingreso de producto
     private TProductos productos;//Para modificación de producto
     private String ruta;//Para ingreso de producto y modificacion de ruta de imagen
-    
-    
-    
+    private Integer unidadesDisponibles;//Para determinar cuantas unidades estan disponibles para validacion
+
     private DataModel<TProductos> listaProductos;//Listado de productos
-    
 
     public DataModel<TProductos> getListaProductos() {
         return listaProductos;
@@ -53,7 +51,7 @@ public class productoController {
     public void setListaProductos(DataModel<TProductos> listaProductos) {
         this.listaProductos = listaProductos;
     }
-    
+
     private String busqueda;
     private FileUploadEvent event1;
     private File result;
@@ -65,6 +63,7 @@ public class productoController {
     public void setBusqueda(String busqueda) {
         this.busqueda = busqueda;
     }
+
     public TProductos getProductos() {
         return productos;
     }
@@ -80,7 +79,7 @@ public class productoController {
     public void setRuta(String ruta) {
         this.ruta = ruta;
     }
-    
+
     public void setAllNull() {
         this.ruta = "";
         everController.itemSeleccionado = null;
@@ -89,8 +88,6 @@ public class productoController {
         //System.out.println(this.ruta);
     }
 
-    
-    
     public TProductos getItemNuevo() {
         return itemNuevo;
     }
@@ -98,15 +95,14 @@ public class productoController {
     public void setItemNuevo(TProductos itemNuevo) {
         this.itemNuevo = itemNuevo;
     }
-    
-        
+
     public productoController() {
         itemNuevo = new TProductos();
     }
-    
-    public String agregar(){
-        try{
-            System.out.println("Entra a agregar!!!");            
+
+    public String agregar() {
+        try {
+            System.out.println("Entra a agregar!!!");
             itemNuevo.setIdCategoria(categoriaController.itemSeleccionado);
             itemNuevo.setIdProveedor(everController.itemSeleccionado);
             itemNuevo.setImagenProducto(ruta);
@@ -114,18 +110,17 @@ public class productoController {
             itemNuevo = new TProductos(); //Para limpiar despues de guardado 
             categoriaController.itemSeleccionado = null; //Para que despues del guardado se limpie y no apunte algun objeto
             everController.itemSeleccionado = null;      //Para que despues del guardado se limpie y no apunte algun objeto
-                                                         //Ocupar ambos itemSeleccionado para el formulario de modificar apuntando
-                                                         //al id correcto
-            ruta=""; //Para limpiar la imagen mostrada despues de guardado
+            //Ocupar ambos itemSeleccionado para el formulario de modificar apuntando
+            //al id correcto
+            ruta = ""; //Para limpiar la imagen mostrada despues de guardado
             System.out.println("finaliza agregar!!!");
-            mensaje("Mensaje","Datos Guardados con éxito.");
-        }
-        catch(Exception e){
-            System.out.println("Error: "+e.getMessage());
+            mensaje("Mensaje", "Datos Guardados con éxito.");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
         return "buscar_producto.xhtml?faces-redirect=true";
     }
-    
+
     //////////////////////////////////////////
     //////////////////////////////////////////
     ///Para Preparar la edición de producto///
@@ -136,7 +131,7 @@ public class productoController {
         this.ruta = p.getImagenProducto();
         //everController.itemSeleccionado = p.getIdProveedor();
         //categoriaController.itemSeleccionado = p.getIdCategoria();
-        
+
         return "editar_producto.xhtml?faces-redirect=true";
         //System.out.println(p.getNombreProducto());
     }
@@ -144,65 +139,90 @@ public class productoController {
     //////////////////////////////////////////
     //////////////////////////////////////////
     //////////////////////////////////////////
-    
-    
+
     //////////////////////////////////////////
     //////////////////////////////////////////
     //Edita luego de haber llenado el formulario
     //////////////////////////////////////////
     //////////////////////////////////////////
-    public String editar(){
-        try{
-            System.out.println("Entra a editar!!!");          
-            productos.setIdCategoria(categoriaController.itemSeleccionado);
-            productos.setIdProveedor(everController.itemSeleccionado);
-            productos.setImagenProducto(ruta);            
-            productosDAO.merge(productos);
-            productos = new TProductos(); //Para limpiar despues de modificar 
-            categoriaController.itemSeleccionado = null; //Para que despues del modificado se limpie y no apunte algun objeto
-            everController.itemSeleccionado = null;      //Para que despues del modificado se limpie y no apunte algun objeto
-                                                         //Ocupar ambos itemSeleccionado para el formulario de modificar apuntando
-                                                         //al id correcto
-            ruta=""; //Para limpiar la imagen mostrada despues de modificar   
-            System.out.println("finaliza modificar!!!");            
-            mensaje("Mensaje","Datos Modificados con éxito.");
-        }
-        catch(Exception e){
-            System.out.println("Error: "+e.getMessage());
-        }
-        return "buscar_producto.xhtml?faces-redirect=true";
+    public String editar() {
+        if (unidadesDisponibles == 0) {
+            mensaje("Error", "Debe de especificar unidades para vender...");
+            return "";
+        } else {
+
+            try {
+                System.out.println("Entra a editar!!!");
+                this.unidadesDisponibles = 0;
+                productos.setIdCategoria(categoriaController.itemSeleccionado);
+                productos.setIdProveedor(everController.itemSeleccionado);
+                productos.setImagenProducto(ruta);
+                productosDAO.merge(productos);
+                productos = new TProductos(); //Para limpiar despues de modificar 
+                categoriaController.itemSeleccionado = null; //Para que despues del modificado se limpie y no apunte algun objeto
+                everController.itemSeleccionado = null;      //Para que despues del modificado se limpie y no apunte algun objeto
+                //Ocupar ambos itemSeleccionado para el formulario de modificar apuntando
+                //al id correcto
+                ruta = ""; //Para limpiar la imagen mostrada despues de modificar   
+                System.out.println("finaliza modificar!!!");
+                mensaje("Mensaje", "Datos Modificados con éxito.");
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+            return "buscar_producto.xhtml?faces-redirect=true";
+        }        
     }
     //////////////////////////////////////////
     //////////////////////////////////////////
     //////////////////////////////////////////
     //////////////////////////////////////////
-    
-        
-    public void mensaje(String titulo,String mensaje){
+
+    public void mensaje(String titulo, String mensaje) {
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(titulo,mensaje));
+        context.addMessage(null, new FacesMessage(titulo, mensaje));
     }
+
     //////////////////////////////////////////
     //////////////////////////////////////////
     //////////////////////////////////////////
+
     @PostConstruct
-    public void init(){//metodo init que se ejecuta
+    public void init() {//metodo init que se ejecuta
         buscar();//Carga los datos de fondo una vez iniciado el facelet
     }
-    
-    public void buscar(){
+
+    public void buscar() {
         //System.out.println("Entra a productosController.buscar");
-        try{
+        try {
             List<TProductos> lista = productosDAO.getFindAll();
             ListDataModel<TProductos> modeloListaProveedor = new ListDataModel<TProductos>(lista);
             setListaProductos(modeloListaProveedor);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("ERROR:   " + e.getMessage());
         }
     }
-    
-    
-    
+
+    public void buscarPorOrden(Integer orden) {
+        //System.out.println("Entra a productosController.buscar");
+        try {
+            List<TProductos> lista = productosDAO.getFindAll(orden);
+            ListDataModel<TProductos> modeloListaProveedor = new ListDataModel<TProductos>(lista);
+            setListaProductos(modeloListaProveedor);
+        } catch (Exception e) {
+            System.out.println("ERROR:   " + e.getMessage());
+        }
+    }
+
+    public Integer productosDisponibles(Integer iniciales, Integer vendidas) { ////Retorna la cantidad de productos disponibles restando unidades totales iniciales menos cantidad vendida
+        Integer resultado;
+        resultado = iniciales - vendidas;
+        if (iniciales <= vendidas) {//Para que no envie numeros negativos, seria erroneo
+            resultado = 0;
+        }
+        this.unidadesDisponibles = resultado;//Para validar en metodo editar
+        return resultado;
+    }
+
     public void handleFileUpload(FileUploadEvent event) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
@@ -237,7 +257,7 @@ public class productoController {
 
             FacesMessage error = new FacesMessage("No se puede subir el archivo!");
             FacesContext.getCurrentInstance().addMessage(null, error);
-        }        
+        }
         System.out.println("Finaliza handleFile");
     }
 }

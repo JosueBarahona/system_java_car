@@ -6,6 +6,8 @@
 package Dao;
 
 import Entidades.TProductos;
+import java.math.BigDecimal;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,24 +19,48 @@ import javax.persistence.Query;
  */
 @Stateless
 public class carritoDetalleDAO {
+
     @PersistenceContext(unitName = "WebCarritoPU")
     private EntityManager em;
-    
-    
-    public void persist(Object object){
-        em.persist(object);  
+
+    public void persist(Object object) {
+        em.persist(object);
     }
-    
-    public Integer totalUnidadesVendidas(TProductos tProductos){
+
+    public Integer totalUnidadesVendidas(Integer tProductos) {
         String consulta;
         Integer resultado = 0;
-        try{
-            consulta = "SELECT SUM(cd.cantidadCarritoDetalle) FROM TCarritoDetalle cd WHERE cd.idProducto = ?1";
-            Query query = em.createQuery(consulta);
-            query.setParameter(1, tProductos.getIdProducto());
-            resultado = (Integer)query.getSingleResult();
-        }catch(Exception e){
-            System.out.println("Error Consulta totalUnidadesVenditas: "+ e.getMessage());
+        try {
+            consulta = "SELECT IF(SUM(cd.cantidad_carrito_detalle)<>'NULL',SUM(cd.cantidad_carrito_detalle),0) as suma FROM t_carrito_detalle as cd WHERE cd.id_producto = " + tProductos;
+            Query query = em.createNativeQuery(consulta);
+            resultado = ((BigDecimal) (query.getSingleResult())).intValue();
+            
+            
+            ///////////////////////////////////////////////////////////////////////
+            ///////////////ADITIONAL INFO FOR getSingleResult()////////////////////
+            //resultado = ((BigDecimal)((List)query.getSingleResult()).get(0)).doubleValue();
+            //Supuestamente siempre devuelve un resultado de tipo Big        Decimal
+            //Se castea a list para acceder al primer registro con get(0) pero no es necesario con getSingleResult()
+            //Me dio error hacer esto            
+            ///////////////FIN ADITIONAL INFO FOR getSingleResult()////////////////
+            ///////////////////////////////////////////////////////////////////////
+            
+            
+            
+            ///////////////////////////////////////////////////////////////////////
+            ///////////////ADITIONAL INFO ////////////////////////////////////////
+            //Para hacer lo mismo pero con una entidad entera devuelta se hace:
+            /*
+             String consulta="select * from persona";
+             Query q=em.createNativeQuery(consulta,com.paquete.modelo.Persona.class);
+             Persona[] personas=(Persona[])q.getResultList().toArray(new Persona[0]);//Arreglo de tipo persona
+             */
+            /////////////FIN ADITIONAL INFO///////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////
+            
+            
+        } catch (Exception e) {
+            System.out.println("Error Consulta totalUnidadesVenditas: " + e.getMessage());
         }
         return resultado;
     }

@@ -37,7 +37,7 @@ public class carritoDetalleController {
     }
     
     
-    public Integer consultaUnidadesVendidas(TProductos producto){
+    public Integer consultaUnidadesVendidas(Integer producto){
         Integer resultado;
         resultado = carritoDetalleDAO.totalUnidadesVendidas(producto);
         return resultado;

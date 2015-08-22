@@ -9,7 +9,7 @@
         /*.ui-menuitem-text{color:white}*/
         .ui-menu-child{background: #003333; width: 210px!important}
         .ui-menubar{background: #003333; border: 0px solid #aed0ea !important}                 
-        .ui-menuitem-link {color: white !important;}
+        .ui-menuitem-link {color: #555555 !important;}
     </style>
     <h:head>
         <title>Facelet Top</title>
@@ -35,30 +35,14 @@
                 </td>
 
             </tr>
-            <table border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#003333">
-                <tr>
-                    <td width="1080px">
-                        <ezcomp:menuUSU/>
-                    </td>
-                </tr>
-            </table>
-            <table border="0" cellspacing="0" cellpadding="0" align="center">
-                <tr>
-                    <td colspan="3">
-                        <td colspan="3">
-                        </td> 
+            <tr>
+                <td colspan="4">
+                    <ezcomp:menuUSU/>
+                </td>
+            </tr> 
+        </table>
 
-
-
-                    </td>
-                    <td colspan="3">
-                        <h:outputLabel value="USUARIO:" style="color:black"/>
-                        <h:outputLabel value="#{sessionScope.USUARIO}" style="color:black"/>
-                    </td>
-                </tr>
-            </table>
-
-            <tr><td colspan="4" style=" background-image: url(../resources/images/plantilla1_1.jpg)" height="30px" ></td></tr>
+        <tr><td colspan="4" style=" background-image: url(../resources/images/plantilla1_1.jpg)" height="34px" >&nbsp;</td></tr>
         </table>
     </h:body>
 </html>

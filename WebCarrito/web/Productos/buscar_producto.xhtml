@@ -18,7 +18,7 @@
 
         <script>
             function cargar() {
-                 
+
             }
 
         </script>
@@ -66,35 +66,37 @@
                                 <!--p:focus context="panel1"/-->
                                 <p:dataTable id="productosTable" var="productos" editable="false" value="#{productoController.listaProductos}"
                                              emptyMessage="No se encuentran datos"                                                                     
-                                             paginator="true" rows="10" widgetVar="productsTable" >
+                                             paginator="true" rows="10" widgetVar="productsTable"  >
 
                                     <f:facet name="header">
                                         <p:outputPanel>
-                                            <div align="right">
+                                            <div align="right">                                                
+                                                <p:commandButton value="Order By ID" update="productosTable" actionListener="#{productoController.buscarPorOrden(1)}"/>&nbsp;
+                                                <p:commandButton value="Order By NAME" update="productosTable" actionListener="#{productoController.buscarPorOrden(2)}"/>&nbsp;
                                                 <p:commandButton value="Todos Productos" update="productosTable" action="#{productoController.buscar()}"/>&nbsp;
                                                 <p:commandButton value="Nuevo  Producto" action="ingresar_producto.xhtml?faces-redirect=true" />
                                             </div>
                                         </p:outputPanel>
                                     </f:facet>
 
-                                    <p:column headerText="ID" width="5%" filterBy="#{productos.idProducto}" filterMatchMode="exact" filterStyle=" width:25px ">
+                                    <p:column  headerText="ID" width="5%" filterBy="#{productos.idProducto}" filterMatchMode="exact" filterStyle=" width:25px ">
                                         <center>
                                             <p:outputLabel value="#{productos.idProducto}"/>
                                         </center>
                                     </p:column>
-                                    <p:column headerText="Nombre" width="16%" filterBy="#{productos.nombreProducto}" filterMatchMode="contains" filterStyle=" width:135px ">
+                                    <p:column headerText="Nombre" width="15%" filterBy="#{productos.nombreProducto}" filterMatchMode="contains" filterStyle=" width:120px ">
                                         <p:outputLabel value="#{productos.nombreProducto}" id="nomProduct"/>
                                         <p:tooltip for="nomProduct">
                                             <h:graphicImage id="ima" url="#{productos.imagenProducto}" height="200px" width="250px"/>
                                         </p:tooltip>
                                     </p:column>
-                                    <p:column headerText="Descripción" width="27%">
+                                    <p:column headerText="Descripción" width="26%">
                                         <p:outputLabel value="#{productos.descripcionProducto}"/>
                                     </p:column>
                                     <p:column headerText="Categoria" width="19%" filterBy="#{productos.idCategoria}" filterMatchMode="exact" >
                                         <f:facet name="filter">
                                             <p:selectOneMenu onchange="PF('productsTable').filter()" style=" width: 130px" >
-                                                <f:selectItem itemLabel="Seleccione Uno" itemValue="#{null}" noSelectionOption="true" />
+                                                <f:selectItem itemLabel="[All Categories]" itemValue="#{null}" noSelectionOption="true" />
                                                 <f:selectItems value="#{categoriaController.lista2}" var="cat" itemLabel="#{cat.nombreCategoria}" />
                                             </p:selectOneMenu>
                                         </f:facet>
@@ -107,31 +109,32 @@
                                             </h:outputText> 
                                         </div>
                                     </p:column>
-                                    <p:column headerText="Cantidad" width="7%" >
+                                    <p:column headerText="Cantidad Disponible" width="9%" >
                                         <div style=" text-align: right">
-                                            <p:outputLabel value="#{productos.cantidadProducto}" />
+                                            <p:outputLabel value="#{(productos.cantidadProducto)-(carritoDetalleController.consultaUnidadesVendidas(productos.idProducto))}" />
                                         </div>
                                     </p:column>
                                     <p:column headerText="Proveedor" width="20%" filterBy="#{productos.idProveedor}" filterMatchMode="exact">
                                         <f:facet name="filter">
                                             <p:selectOneMenu onchange="PF('productsTable').filter()" style=" width: 130px" >
-                                                <f:selectItem itemLabel="Seleccione Uno" itemValue="#{null}" noSelectionOption="true" />
+                                                <f:selectItem itemLabel="[ All Providers ]" itemValue="#{null}" noSelectionOption="true" />
                                                 <f:selectItems value="#{everController.lista}" var="cat2" itemLabel="#{cat2.nombreProveedor}" />
                                             </p:selectOneMenu>
                                         </f:facet>
                                         <p:outputLabel value="#{productos.idProveedor.nombreProveedor}"/>
                                     </p:column>
-                                    
+
                                     <p:column headerText="Act" width="4%" >  
                                         <p:commandLink action="#{productoController.preparaEditar(productos)}" id="editCommand"  >
                                             <img src="../resources/images/edit.ico" border="0" width="10px" height="10px" />                                        
                                         </p:commandLink>
                                         <p:tooltip for="editCommand" value="Editar"/>
                                         <!--p:rowEditor /-->                                           
-                                    </p:column>                                   
+                                    </p:column>     
+
 
                                 </p:dataTable>
-                                
+
 
 
                             </center>                        

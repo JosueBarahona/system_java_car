@@ -74,13 +74,13 @@
                                     <div align="right" >Nombre Producto:</div> 
                                     <p:inputText id="nombre" value="#{productoController.productos.nombreProducto}" label="Nombre"  requiredMessage="Ingrese un nombre" required="true" tabindex="1"  />  
 
-                                    
-                                    
+
+
                                     <div align="right" >Descripción del Producto:</div> 
                                     <p:inputTextarea rows="2" cols="36" id="descripcion" value="#{productoController.productos.descripcionProducto}"  label="Descripción" required="true" tabindex="2" />
 
 
-                                    
+
                                     <div align="right" >Categoría:</div>                                       
                                     <p:selectOneMenu  style=" width: 200px" effect="bounce" id="cat1"  widgetVar="cateVar" 
                                                       value="#{categoriaController.itemSeleccionado.idCategoria}" 
@@ -90,9 +90,9 @@
                                                          itemValue="#{cat.idCategoria}" />
                                     </p:selectOneMenu>
 
-                                    
-                                    
-                                    
+
+
+
                                     <div align="right" >Proveedor:</div>   
                                     <p:selectOneMenu style=" width: 200px" effect="bounce" id="cat2" widgetVar="proveVar"
                                                      value="#{everController.itemSeleccionado.idProveedor}" required="true" 
@@ -103,24 +103,36 @@
                                     </p:selectOneMenu>
 
 
-                                    
-                                    
+
+
                                     <div align="right" >Precio de Venta:</div> 
                                     <pe:inputNumber id="precio" value="#{productoController.productos.precioProducto}" decimalPlaces="2" onfocus=" this.select()" style=" text-align: right " 
                                                     required="true" requiredMessage="Especifique un precio de venta" tabindex="5" symbol="$ " symbolPosition="p" >  
                                         <p:ajax event="blur"  />  
                                     </pe:inputNumber>
 
-                                    
-                                    
+
+
                                     <div align="right" >Cantidad Inicial:</div> 
                                     <pe:inputNumber id="cantidad" value="#{productoController.productos.cantidadProducto}" decimalPlaces="0" onfocus=" this.select()" style=" text-align: right " 
-                                                    required="true" requiredMessage="Debe especificar una cantidad de producto" tabindex="6" >  
+                                                    required="true" requiredMessage="Debe especificar una cantidad de producto" tabindex="6"  >  
+                                        <p:ajax event="keyup" update="unidadesDisponibles" />  
+                                    </pe:inputNumber>
+
+                                    <!-- Consulta de Unidades -->
+                                    <div align="right" >Unidades Vendidas( - )</div> 
+                                    <pe:inputNumber id="unidadesVendidas" value="#{carritoDetalleController.consultaUnidadesVendidas(productoController.productos.idProducto)}" decimalPlaces="0"  style=" text-align: right " disabled="true" >  
                                         <p:ajax event="blur" />  
                                     </pe:inputNumber>
 
-                                    
-                                    
+
+                                    <div align="right" >Total Unidades Disponibles ( = )</div> 
+                                    <pe:inputNumber id="unidadesDisponibles" value="#{productoController.productosDisponibles(productoController.productos.cantidadProducto, carritoDetalleController.consultaUnidadesVendidas(productoController.productos.idProducto))}" decimalPlaces="0"  style=" text-align: right " disabled="true" >  
+                                        <p:ajax event="blur" />  
+                                    </pe:inputNumber>
+                                    <!-- Fin Consulta de Unidades -->
+
+
                                     <div align="right" >Seleccione Imagen:</div> 
                                     <p:fileUpload mode="advanced"                                                 
                                                   label="Seleccionar Imagen"                                                  
@@ -144,7 +156,7 @@
                                                              value="Modificar" onclick="return confirm('Desea Modificar?')"
                                                              style=" height: 30px; font-size: 13px; margin: 2px; padding: 2px 10px 2px 10px; 
                                                              animation: normal; cursor: pointer; border: 1px solid #aaa " >
-                                                
+
                                             </h:commandButton>
 
                                             <!--p:commandButton value="Guardar" actionListener="" update="growl">
