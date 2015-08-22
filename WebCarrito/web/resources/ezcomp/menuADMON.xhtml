@@ -14,8 +14,8 @@
     <cc:implementation>
 
         <h:form>
-            <p:menubar autoDisplay="true">
-                <p:submenu label="Administración"  icon="ui-icon-document" >  
+            <p:menubar autoDisplay="true" >
+                <p:submenu label="Administración"  icon="ui-icon-document"  >  
                     <p:separator />  
                     <p:menuitem value="Salir" action="#{usuarioController.irURL()}">
                         <f:setPropertyActionListener target="#{usuarioController.url}" value="../login_usuario.xhtml" />
@@ -57,6 +57,10 @@
                     <p:menuitem value="Eliminar" icon="ui-icon-arrowrefresh-1-w"/>
 
                 </p:submenu>
+                <f:facet name="options">
+                    <p:outputLabel value="Usuario: Ever Murcia"/>   &nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:commandButton type="button" value="Cerrar Sesión" icon="ui-icon-extlink" actionListener="#{loginController.logout()}" />
+                </f:facet>
             </p:menubar>
         </h:form>
     </cc:implementation>

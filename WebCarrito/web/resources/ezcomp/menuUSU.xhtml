@@ -14,8 +14,8 @@
     <cc:implementation>
 
         <h:form>
-            <p:menubar autoDisplay="true">
-                   <p:submenu label="Productos" icon="ui-icon ui-icon-gear" >  
+            <p:menubar autoDisplay="true" style=" ">
+                <p:submenu label="Productos" icon="ui-icon ui-icon-gear" >  
                     <p:separator />  
 
                     <p:menuitem value="Clientes" />
@@ -42,7 +42,10 @@
                     </p:submenu>
                     <p:separator />
                 </p:submenu>
-                
+                <f:facet name="options">
+                    <p:outputLabel value="Usuario: Ever Murcia"/>
+                    <p:commandButton type="button" value="Cerrar Sesión" icon="ui-icon-extlink" actionListener="#{loginController.logout()}" />
+                </f:facet>
             </p:menubar>
         </h:form>
     </cc:implementation>
