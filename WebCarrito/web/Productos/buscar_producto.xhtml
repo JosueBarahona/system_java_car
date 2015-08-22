@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.ico" />
+
+
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>.:: &nbsp;&nbsp;Carrito Web Java&nbsp;&nbsp; ::.</title>
+
+        <script>
+            function cargar() {
+                 
+            }
+
+        </script>
+    </h:head>
+
+
+    <h:body onload="">
+
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--/////////////////////////////////////////Llamada Al Top///////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+
+        <div id="top">
+            <ui:insert name="top" >
+                <ui:include src="/resources/top.xhtml"/>
+            </ui:insert>
+        </div>
+
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--///////////////////////////////////Llamada Al Contenido///////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+
+        <div id="content" class="center_content">
+            <ui:insert name="content">
+                <!--Inicio de estructuracion de contenido-->
+                <!--Inicio de estructuracion de contenido-->
+                <!--Inicio de estructuracion de contenido-->
+                <!--Inicio de estructuracion de contenido-->
+
+                <table width="90%" border="0" align="center" style="max-width: 1080px; min-width: 850px" >
+                    <td>
+
+                        <h:form enctype="multipart/form-data" prependId="false" id="formulario" >
+                            <p:growl id="growlMessaje" showDetail="true" /><!-- Esto es para los globitos -->
+                            <p:remoteCommand name="buscarProductosScript" action="#{productoController.buscar()}" update="productosTable" autoRun="true"/><!-- Ejecuta de entrada como un javascript en onload del body, carga datos de todos los productos con actualizar pagina -->
+                            <p:remoteCommand name="buscarCategoriasScript" action="#{categoriaController.buscar()}" update="productosTable" autoRun="true"/><!-- Ejecuta de entrada como un javascript en onload del body por autorun=true, carga datos de todas las categorias con actualizar pagina -->
+                            <p:remoteCommand name="buscarProveedorScript" action="#{everController.buscar()}" update="productosTable" autoRun="true"/><!-- Ejecuta de entrada como un javascript en onload del body por autorun=true, carga datos de todos los proveedores con actualizar pagina -->
+                            <p:remoteCommand name="hacerTodoNull" action="#{productoController.setAllNull()}"  autoRun="true"/>
+                            <!-- Si ocurre accion de guardao o modificado esto se encarga de cargar respectivo mensaje de globo -->
+                            <center>
+                                <!--p:focus context="panel1"/-->
+                                <p:dataTable id="productosTable" var="productos" editable="false" value="#{productoController.listaProductos}"
+                                             emptyMessage="No se encuentran datos"                                                                     
+                                             paginator="true" rows="10" widgetVar="productsTable" >
+
+                                    <f:facet name="header">
+                                        <p:outputPanel>
+                                            <div align="right">
+                                                <p:commandButton value="Todos Productos" update="productosTable" action="#{productoController.buscar()}"/>&nbsp;
+                                                <p:commandButton value="Nuevo  Producto" action="ingresar_producto.xhtml?faces-redirect=true" />
+                                            </div>
+                                        </p:outputPanel>
+                                    </f:facet>
+
+                                    <p:column headerText="ID" width="5%" filterBy="#{productos.idProducto}" filterMatchMode="exact" filterStyle=" width:25px ">
+                                        <center>
+                                            <p:outputLabel value="#{productos.idProducto}"/>
+                                        </center>
+                                    </p:column>
+                                    <p:column headerText="Nombre" width="16%" filterBy="#{productos.nombreProducto}" filterMatchMode="contains" filterStyle=" width:135px ">
+                                        <p:outputLabel value="#{productos.nombreProducto}" id="nomProduct"/>
+                                        <p:tooltip for="nomProduct">
+                                            <h:graphicImage id="ima" url="#{productos.imagenProducto}" height="200px" width="250px"/>
+                                        </p:tooltip>
+                                    </p:column>
+                                    <p:column headerText="Descripción" width="27%">
+                                        <p:outputLabel value="#{productos.descripcionProducto}"/>
+                                    </p:column>
+                                    <p:column headerText="Categoria" width="19%" filterBy="#{productos.idCategoria}" filterMatchMode="exact" >
+                                        <f:facet name="filter">
+                                            <p:selectOneMenu onchange="PF('productsTable').filter()" style=" width: 130px" >
+                                                <f:selectItem itemLabel="Seleccione Uno" itemValue="#{null}" noSelectionOption="true" />
+                                                <f:selectItems value="#{categoriaController.lista2}" var="cat" itemLabel="#{cat.nombreCategoria}" />
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                        <p:outputLabel value="#{productos.idCategoria.nombreCategoria}"/>
+                                    </p:column>
+                                    <p:column headerText="Precio" width="7%" >
+                                        <div style=" text-align: right">                                            
+                                            <h:outputText value="#{productos.precioProducto}">
+                                                <f:convertNumber pattern="$ 0.00" locale="en_US"/>  <!-- Formato ($0.00) .. localidad (en = Ingles)(US = Estados Unidos) -->                                              
+                                            </h:outputText> 
+                                        </div>
+                                    </p:column>
+                                    <p:column headerText="Cantidad" width="7%" >
+                                        <div style=" text-align: right">
+                                            <p:outputLabel value="#{productos.cantidadProducto}" />
+                                        </div>
+                                    </p:column>
+                                    <p:column headerText="Proveedor" width="20%" filterBy="#{productos.idProveedor}" filterMatchMode="exact">
+                                        <f:facet name="filter">
+                                            <p:selectOneMenu onchange="PF('productsTable').filter()" style=" width: 130px" >
+                                                <f:selectItem itemLabel="Seleccione Uno" itemValue="#{null}" noSelectionOption="true" />
+                                                <f:selectItems value="#{everController.lista}" var="cat2" itemLabel="#{cat2.nombreProveedor}" />
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                        <p:outputLabel value="#{productos.idProveedor.nombreProveedor}"/>
+                                    </p:column>
+                                    
+                                    <p:column headerText="Act" width="4%" >  
+                                        <p:commandLink action="#{productoController.preparaEditar(productos)}" id="editCommand"  >
+                                            <img src="../resources/images/edit.ico" border="0" width="10px" height="10px" />                                        
+                                        </p:commandLink>
+                                        <p:tooltip for="editCommand" value="Editar"/>
+                                        <!--p:rowEditor /-->                                           
+                                    </p:column>                                   
+
+                                </p:dataTable>
+                                
+
+
+                            </center>                        
+                        </h:form>
+
+                    </td>
+                </table> 
+
+                <!--Fin de estructuracion de contenido-->
+                <!--Fin de estructuracion de contenido-->
+                <!--Fin de estructuracion de contenido-->
+                <!--Fin de estructuracion de contenido-->
+            </ui:insert>
+        </div>
+
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--///////////////////////////////////Llamada Al Bottom//////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+        <div id="bottom">
+            <ui:insert name="bottom">
+                <ui:include src="/resources/bottom.xhtml"/>
+            </ui:insert>
+        </div>
+
+    </h:body>
+
+</html>

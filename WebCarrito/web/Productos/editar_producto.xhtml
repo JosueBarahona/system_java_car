@@ -19,14 +19,15 @@
 
         <script>
             function cargar() {
-
+                PF('cateVar').selectValue("#{productoController.productos.idCategoria.idCategoria}");
+                PF('proveVar').selectValue("#{productoController.productos.idProveedor.idProveedor}");
             }
 
         </script>
     </h:head>
 
 
-    <h:body >
+    <h:body onload="cargar();">
 
         <!--//////////////////////////////////////////////////////////////////////////////////////////-->
         <!--//////////////////////////////////////////////////////////////////////////////////////////-->
@@ -58,54 +59,68 @@
 
                         <h:form enctype="multipart/form-data" prependId="false" id="formulario" >
                             <p:growl id="growl" showDetail="true" /><!-- Esto es para los globitos -->
-                            <p:remoteCommand name="hacerTodoNull" action="#{productoController.setAllNull()}"  autoRun="true"/>
-
-                            <!--Reinicia la ruta de la imagen del producto para que este en blanco si hubo una cancelación de edicion y quedó reciduo-->
                             <center>
-                                <p:focus context="panel1" />
+                                <p:focus context="panel1"/>
                                 <p:panelGrid id="panel1" columns="2" style="width: 750px; border-style:  solid; "   >  
 
 
                                     <f:facet name="header">                                                                  
                                         <font size="2">
-                                            Nuevo Producto
+                                            Editar Producto
                                         </font>
                                     </f:facet>  
 
 
                                     <div align="right" >Nombre Producto:</div> 
-                                    <p:inputText id="nombre" value="#{productoController.itemNuevo.nombreProducto}" label="Nombre"  requiredMessage="Ingrese un nombre" required="true" tabindex="1"  />  
+                                    <p:inputText id="nombre" value="#{productoController.productos.nombreProducto}" label="Nombre"  requiredMessage="Ingrese un nombre" required="true" tabindex="1"  />  
 
+                                    
+                                    
                                     <div align="right" >Descripción del Producto:</div> 
-                                    <p:inputTextarea rows="2" cols="36" id="descripcion" value="#{productoController.itemNuevo.descripcionProducto}"  label="Descripción" required="true" tabindex="2" />
+                                    <p:inputTextarea rows="2" cols="36" id="descripcion" value="#{productoController.productos.descripcionProducto}"  label="Descripción" required="true" tabindex="2" />
 
 
-                                    <div align="right" >Categoría:</div>   
-                                    <p:selectOneMenu onchange="#{categoriaController.verificarSeleccion()}" style=" width: 200px" effect="bounce" id="cat1" value="#{categoriaController.itemSeleccionado.idCategoria}" required="true" requiredMessage="Debe de Seleccionar una categoria" tabindex="3">
-                                        <f:selectItem itemLabel="-- Seleccione Una --" itemValue=""  noSelectionOption="true"/>
-                                        <f:selectItems value="#{categoriaController.lista2}" var="cat" itemLabel="#{cat.nombreCategoria}" itemValue="#{cat.idCategoria}" />
+                                    
+                                    <div align="right" >Categoría:</div>                                       
+                                    <p:selectOneMenu  style=" width: 200px" effect="bounce" id="cat1"  widgetVar="cateVar" 
+                                                      value="#{categoriaController.itemSeleccionado.idCategoria}" 
+                                                      required="true" requiredMessage="Debe de Seleccionar una categoria" tabindex="3">
+                                        <f:selectItem  itemLabel="-- Seleccione Una --" itemValue=""  noSelectionOption="true"/>
+                                        <f:selectItems   value="#{categoriaController.lista2}" var="cat" itemLabel="#{cat.nombreCategoria}" 
+                                                         itemValue="#{cat.idCategoria}" />
                                     </p:selectOneMenu>
 
+                                    
+                                    
+                                    
                                     <div align="right" >Proveedor:</div>   
-                                    <p:selectOneMenu style=" width: 200px" effect="bounce" id="cat2" value="#{everController.itemSeleccionado.idProveedor}" required="true" requiredMessage="Debe de Seleccionar un Proveedor" tabindex="4">
+                                    <p:selectOneMenu style=" width: 200px" effect="bounce" id="cat2" widgetVar="proveVar"
+                                                     value="#{everController.itemSeleccionado.idProveedor}" required="true" 
+                                                     requiredMessage="Debe de Seleccionar un Proveedor" tabindex="4">
                                         <f:selectItem itemLabel="-- Seleccione Uno --" itemValue=""  noSelectionOption="true"/>
-                                        <f:selectItems value="#{everController.lista}" var="prov" itemLabel="#{prov.nombreProveedor}" itemValue="#{prov.idProveedor}" />
+                                        <f:selectItems value="#{everController.lista}" var="prov" 
+                                                       itemLabel="#{prov.nombreProveedor}" itemValue="#{prov.idProveedor}" />
                                     </p:selectOneMenu>
 
 
-
+                                    
+                                    
                                     <div align="right" >Precio de Venta:</div> 
-                                    <pe:inputNumber id="precio" value="#{productoController.itemNuevo.precioProducto}" decimalPlaces="2" onfocus=" this.select()" style=" text-align: right " 
+                                    <pe:inputNumber id="precio" value="#{productoController.productos.precioProducto}" decimalPlaces="2" onfocus=" this.select()" style=" text-align: right " 
                                                     required="true" requiredMessage="Especifique un precio de venta" tabindex="5" symbol="$ " symbolPosition="p" >  
                                         <p:ajax event="blur"  />  
                                     </pe:inputNumber>
 
+                                    
+                                    
                                     <div align="right" >Cantidad Inicial:</div> 
-                                    <pe:inputNumber id="cantidad" value="#{productoController.itemNuevo.cantidadProducto}" decimalPlaces="0" onfocus=" this.select()" style=" text-align: right " 
+                                    <pe:inputNumber id="cantidad" value="#{productoController.productos.cantidadProducto}" decimalPlaces="0" onfocus=" this.select()" style=" text-align: right " 
                                                     required="true" requiredMessage="Debe especificar una cantidad de producto" tabindex="6" >  
                                         <p:ajax event="blur" />  
                                     </pe:inputNumber>
 
+                                    
+                                    
                                     <div align="right" >Seleccione Imagen:</div> 
                                     <p:fileUpload mode="advanced"                                                 
                                                   label="Seleccionar Imagen"                                                  
@@ -121,16 +136,17 @@
                                     <h:graphicImage id="img" url="#{productoController.ruta}" height="160" width="190" />
 
 
+
                                     <f:facet name="footer">
                                         <p:row>
                                             <h:commandButton id="btnEnviar" tabindex="9"
-                                                             actionListener="#{productoController.agregar()}"
-                                                             value="Guardar" onclick="return confirm('Desea Guardar?')"
+                                                             action="#{productoController.editar()}"
+                                                             value="Modificar" onclick="return confirm('Desea Modificar?')"
                                                              style=" height: 30px; font-size: 13px; margin: 2px; padding: 2px 10px 2px 10px; 
                                                              animation: normal; cursor: pointer; border: 1px solid #aaa " >
-                                                <f:ajax execute="@all" render="@form"/>
+                                                
                                             </h:commandButton>
-                                            
+
                                             <!--p:commandButton value="Guardar" actionListener="" update="growl">
                                                 <p:confirm header="Confirmar" message="Desea Guardar?" icon="ui-icon-alert" />
                                                 <f:ajax execute="@all" render="@form"/>

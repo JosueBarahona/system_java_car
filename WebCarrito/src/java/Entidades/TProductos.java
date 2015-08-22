@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TProductos.findAll", query = "SELECT t FROM TProductos t"),
+    @NamedQuery(name = "TProductos.findAllSum", query = "SELECT t, d.suma FROM TProductos t,(SELECT cd.idProducto, SUM(cd.cantidadCarritoDetalle) suma FROM TCarritoDetalle cd GROUP BY cd.idProducto) d WHERE t.idProducto = d.idProducto"),
     @NamedQuery(name = "TProductos.findByIdProducto", query = "SELECT t FROM TProductos t WHERE t.idProducto = :idProducto"),
     @NamedQuery(name = "TProductos.findByCantidadProducto", query = "SELECT t FROM TProductos t WHERE t.cantidadProducto = :cantidadProducto"),
     @NamedQuery(name = "TProductos.findByPrecioProducto", query = "SELECT t FROM TProductos t WHERE t.precioProducto = :precioProducto"),
