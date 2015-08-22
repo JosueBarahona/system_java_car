@@ -34,7 +34,7 @@ public class usuarioController {
     private DataModel<TUsuarios> listaUsuarios;
     private String busqueda;
     private Object usuarioDAO;
-    
+
     public Object getUsuarioDAO() {
         return usuarioDAO;
     }
@@ -45,7 +45,7 @@ public class usuarioController {
 
     public usuarioController() {
         itemNuevo = new TUsuarios();
-        
+
     }
 
     @PostConstruct
@@ -147,10 +147,6 @@ public class usuarioController {
 
         }
     }
-        
-    
-
-    
 
     public void onEdit(RowEditEvent event) {
         usuarios = (TUsuarios) event.getObject();

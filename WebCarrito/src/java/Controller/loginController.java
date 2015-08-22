@@ -10,6 +10,7 @@ import Dao.usuarioDAO;
 import Entidades.TCategorias;
 import Entidades.TProductos;
 import Entidades.TUsuarios;
+import Util.Util;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -18,6 +19,8 @@ import javax.faces.bean.SessionScoped;
 
 import javax.faces.context.FacesContext;
 import javax.faces.model.ListDataModel;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,7 +33,7 @@ public class loginController {
     @EJB
     private loginDAO loginDAO;
 //    private TBitacora itemNuevo;
-    private String usuario, password, nombrecomp, rol;
+    private String usuario, password, usuarioSess;
 
     public loginController() {
 
@@ -38,20 +41,36 @@ public class loginController {
 
     public String login() {
         if (loginDAO.getLogin(usuario, password) > 0) {
+
             mensaje();
+
             loginDAO.buscarPorNombre(usuario, password);
-            loginDAO.buscarRol(usuario, password);
             
-            
-            
-            return "ingresar_usuario";
+            usuarioSess = usuario;
+
+            if (loginDAO.buscarRol(usuario, password).equalsIgnoreCase("[Usuario]")) {
+
+                
+                HttpSession hs = Util.getSession();
+                hs.setAttribute("usuarioSess", usuarioSess);
+                return "ingresar_usuario?faces-redirect=true";
+            } else {
+
+                HttpSession hs = Util.getSession();
+                hs.setAttribute("usuarioSess", usuarioSess);
+                return "ingresar_usuario_adm?faces-redirect=true";
+            }
+
         } else {
+
             error(); // Muestra mensaje de error
+
             return "";
+
         }
     }
 
-      public void mensaje() {
+    public void mensaje() {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Mensaje", "Login exitoso"));
     }
@@ -59,6 +78,12 @@ public class loginController {
     public void error() {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Mensaje", "Error al hacer Login"));
+    }
+
+    public String logout() {
+        HttpSession hs = Util.getSession();
+        hs.invalidate();
+        return "login_usuario";
     }
 
     public loginDAO getLoginDAO() {
@@ -85,20 +110,12 @@ public class loginController {
         this.password = password;
     }
 
-    public String getNombrecomp() {
-        return nombrecomp;
+    public String getUsuarioSess() {
+        return usuarioSess;
     }
 
-    public void setNombrecomp(String nombrecomp) {
-        this.nombrecomp = nombrecomp;
-    }
-
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setUsuarioSess(String usuarioSess) {
+        this.usuarioSess = usuarioSess;
     }
 
 }
