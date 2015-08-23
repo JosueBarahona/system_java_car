@@ -54,12 +54,12 @@ public class loginController implements Serializable{
                 
                 HttpSession hs = Util.getSession();
                 hs.setAttribute("usuarioSess", usuarioSess);
-                return "ingresar_usuario.xhtml?faces-redirect=true";
+                return "index_usu.xhtml?faces-redirect=true";
             } else {
 
                 HttpSession hs = Util.getSession();
                 hs.setAttribute("usuarioSess", usuarioSess);
-                return "./Productos/buscar_producto.xhtml?faces-redirect=true";
+                return "index_adm.xhtml?faces-redirect=true";
             }
 
         } else {
@@ -84,7 +84,7 @@ public class loginController implements Serializable{
     public String logout() {
         HttpSession hs = Util.getSession();
         hs.invalidate();
-        return "login_usuario";
+        return "../Usuarios/login_usuario.xhtml?faces-redirect=true";
     }
 
     public loginDAO getLoginDAO() {
