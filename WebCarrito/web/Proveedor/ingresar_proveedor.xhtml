@@ -45,151 +45,145 @@
 
                         <h:form id="form1" enctype="multipart/form-data" prependId="false">
                             <p:growl id="growl" showDetail="true" />  
+                            <center>
+                                
+                            <p:panelGrid id="panel1" columns="2" style="width: 750px; border-style:  solid; "  >  
+                                <f:facet name="header">  
+                                    Nuevo Proveedor
+                                </f:facet>  
 
-                            <p:fieldset legend="&nbsp;" toggleable="true" toggleSpeed="500" style="text-align: left">                                                     
-                                <center>
-                                    <p:panelGrid id="panel1" columns="2" style="width: 450px; " >  
-                                        <f:facet name="header">  
-                                            Nuevo Usuario
-                                        </f:facet>  
+                                <h:outputLabel  value="Nombre Proveedor:" />  
+                                <p:inputText id="nombre" value="#{proveedorController.itemNuevo.nombreProveedor}"  
+                                             label="Nombre" size="35" requiredMessage="Ingrese un nombre" required="true" />  
+                                <h:outputLabel  value="Nit Proveedor:" />  
+                                <p:inputMask mask="9999-99-99" size="17" required="true" value="#{proveedorController.itemNuevo.nitProveedor}" /> 
+                                <h:outputLabel  value="NRC Proveedor:" />  
+                                <p:inputMask mask="9999-99-99" size="17" required="true" value="#{proveedorController.itemNuevo.nrcProveedor}" />  
+                                <h:outputLabel  value="Direccion Proveedor:" />  
+                                <p:inputText id="direccion" value="#{proveedorController.itemNuevo.direccionProveedor}"  
+                                             label="email" size="35" requiredMessage="Ingrese el correo" required="true" />  
+                                <h:outputLabel  value="Telefono:" />  
 
-                                        <h:outputLabel  value="Nombre Completo:" />  
-                                        <p:inputText id="nombre" value="#{usuarioController.itemNuevo.nombreUsuario}"  
-                                                     label="Nombre" size="35" requiredMessage="Ingrese un nombre" required="true" />  
-                                        <h:outputLabel  value="NickName Usuario:" />  
-                                        <p:inputText id="NickName" value="#{usuarioController.itemNuevo.nicknameUsuario}"  
-                                                     label="NickName" size="20" requiredMessage="Ingrese un nickname" required="true" />  
-                                        <h:outputLabel  value="Correo Electronico:" />  
-                                        <p:inputText id="email" value="#{usuarioController.itemNuevo.correoUsuario}"  
-                                                     label="email" size="35" requiredMessage="Ingrese el correo" required="true" />  
-                                        <h:outputLabel  value="Rol Usuario:" />  
-                                        <p:selectOneMenu id="rol" value="#{usuarioController.itemNuevo.rolUsuario}" >
-                                            <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
-                                            <f:selectItem itemLabel="Usuario" itemValue="Usuario"/>
-                                        </p:selectOneMenu>
-                                        <h:outputLabel  value="Contraseña:" />  
-                                        <p:password id="password" value="#{usuarioController.itemNuevo.passUsuario}" required="true" label="Password" size="20" />                                                              
-                                        <f:facet name="footer">
-                                            <p:row>
-                                                <h:commandButton id="btnEnviar"
-                                                                 actionListener="#{usuarioController.agregar()}" 
-                                                                 value="Guardar" onclick="return confirm('Desea Guardar?')"
-                                                                 style=" height: 30px; font-size: 13px; margin: 2px; padding: 2px 10px 2px 10px; 
-                                                                 animation: normal; cursor: pointer; border: 1px solid #aaa " >
-                                                    <f:ajax execute="@all" render="@form"/>
-                                                </h:commandButton>
-                                                <p:commandButton type="button" value="Buscar" 
-                                                                 onclick="PF('dl_buscar').show();"  
-                                                                 icon="ui-icon-search" />
+                                <p:inputMask mask="9999-9999" size="17" required="true" value="#{proveedorController.itemNuevo.telefonoProveedor}" />
 
+                                <f:facet name="footer">
+                                    <p:row>
+                                        <h:commandButton id="btnEnviar"
+                                                         actionListener="#{proveedorController.agregar()}" 
+                                                         value="Guardar" onclick="return confirm('Desea Guardar?')"
+                                                         style=" height: 30px; font-size: 13px; margin: 2px; padding: 2px 10px 2px 10px; 
+                                                         animation: normal; cursor: pointer; border: 1px solid #aaa " >
+                                            <f:ajax execute="@all" render="@form"/>
+                                        </h:commandButton>
+                                        <p:commandButton type="button" value="Buscar"
+                                                         onclick="PF('dl_buscar').show();"
+                                                         icon="ui-icon-search"/>       
 
-                                            </p:row>
-                                        </f:facet>  
+                                    </p:row>
+                                </f:facet>  
 
-                                    </p:panelGrid>  
-                                </center>
-                            </p:fieldset>         
+                            </p:panelGrid>  
+                            </center>
 
                         </h:form>
-                        <br/>
-                        <!-- INICIO CODIGO DE GRID DE BUSQUEDA -->
                         <h:form id="form2">  
-                            <center>
+
                             <p:growl id="messages" showDetail="true" />
                             <p:dialog id="modalDialogBuscar" style="text-align: left!important" 
-                                      header="Buscar Usuarios" widgetVar="dl_buscar" modal="false" resizable="true"
+                                      header="Buscar Proveedor" widgetVar="dl_buscar" modal="false" resizable="true"
                                       showEffect="clip" hideEffect="fold">
-                                
                                 <p:panelGrid style="width:700px">
                                     <p:row>
                                         <p:column>
                                             <h:outputLabel value="Busqueda de Usuarios por Nombre: " />    
-                                            <p:inputText value="#{usuarioController.busqueda}" label="Buscar:  " size="15">
+                                            <p:inputText value="#{proveedorController.busqueda}" label="Buscar:  " size="15">
                                                 <p:ajax event="keyup" update="usuariolist" 
-                                                        listener="#{usuarioController.buscarUsuarios()}"/>
+                                                        listener="#{proveedorController.buscarProveedor()}"/>
                                             </p:inputText>
                                             <p:commandButton id="btnBus" value="Ver Todo" 
-                                                             update="usuariolist" action="#{usuarioController.buscar()}"/>
+                                                             update="usuariolist" action="#{proveedorController.buscar()}"/>
                                         </p:column>
                                     </p:row>    
                                 </p:panelGrid>
 
-                                <p:dataTable id="usuariolist" var="usuarios" editable="true" value="#{usuarioController.listaUsuarios}"
+                                <p:dataTable id="usuariolist" var="proveedor" editable="true" value="#{proveedorController.listaProveedores}"
                                              emptyMessage="No se encuentran datos"                                                                     
                                              paginator="true" rows="8">  
 
-                                    <p:ajax event="rowEdit" listener="#{usuarioController.onEdit}" update=":form2:messages" />  
+                                    <p:ajax event="rowEdit" listener="#{proveedorController.onEdit}" update=":form2:messages" />  
 
                                     <p:ajax event="rowEditCancel" update=":form2:messages" />  
 
                                     <p:column headerText="ID" style="width:20px">  
-                                        <h:outputText value="#{usuarios.idUsuario}" />
+                                        <h:outputText value="#{proveedor.idProveedor}" /> <!-- en la variable proveedor guardo toda la estructura de la tabla -->
                                     </p:column>
 
                                     <p:column headerText="Nombre" style="width:150px">  
                                         <p:cellEditor>  <!-- hace editable la tabla -->
                                             <f:facet name="output">  
-                                                <h:outputText value="#{usuarios.nombreUsuario}" />  <!-- Muestra la info -->
+                                                <h:outputText value="#{proveedor.nombreProveedor}" />  <!-- Muestra la info -->
                                             </f:facet>  
                                             <f:facet name="input">  
-                                                <p:inputText value="#{usuarios.nombreUsuario}" style="width:150px"/>  
+                                                <p:inputText value="#{proveedor.nombreProveedor}" style="width:150px"/>  
                                                 <!-- Aparece caja de texto cuando se le da al lapiz-->
                                             </f:facet>  
                                         </p:cellEditor>  
                                     </p:column>
-                                    <p:column headerText="Nick Name" style="width:150px">
+                                    <p:column headerText="Direccion" style="width:150px">
                                         <p:cellEditor>
                                             <f:facet name="output">
-                                                <h:outputText value="#{usuarios.nicknameUsuario}" />
+                                                <h:outputText value="#{proveedor.direccionProveedor}" />
                                             </f:facet>
                                             <f:facet name="input">
-                                                <p:inputText value="#{usuarios.nicknameUsuario}" style="width:150px"/>  
+                                                <p:inputText value="#{proveedor.direccionProveedor}" style="width:150px"/>  
                                             </f:facet>
                                         </p:cellEditor>
                                     </p:column>   
 
-                                    <p:column headerText="Correo Electronico" style="width:150px">
+                                    <p:column headerText="NCR PRoveedor" style="width:150px">
                                         <p:cellEditor>
                                             <f:facet name="output">
-                                                <h:outputText value="#{usuarios.correoUsuario}" />
+                                                <h:outputText value="#{proveedor.nrcProveedor}" />
                                             </f:facet>
                                             <f:facet name="input">
-                                                <p:inputText value="#{usuarios.correoUsuario}" style="width:150px"/>  
+                                                <p:inputText value="#{proveedor.nrcProveedor}" style="width:150px"/>  
                                             </f:facet>
                                         </p:cellEditor>
                                     </p:column> 
-
-                                    <p:column headerText="Rol" style="width:150px">
-
-                                        <h:outputText value="#{usuarios.rolUsuario}" />
-
-                                    </p:column> 
-
-                                    <p:column headerText="Password" style="width:150px">
+                                    <p:column headerText="Nit" style="width:150px">
                                         <p:cellEditor>
                                             <f:facet name="output">
-                                                <h:outputText value="#{usuarios.passUsuario}" />
+                                                <h:outputText value="#{proveedor.nitProveedor}" />
                                             </f:facet>
                                             <f:facet name="input">
-                                                <p:inputText value="#{usuarios.passUsuario}" style="width:150px"/>  
+                                                <p:inputText value="#{proveedor.nitProveedor}" style="width:150px"/>  
                                             </f:facet>
                                         </p:cellEditor>
                                     </p:column> 
-
+                                    <p:column headerText="Telefono" style="width:150px">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{proveedor.telefonoProveedor}" />
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputText value="#{proveedor.telefonoProveedor}" style="width:150px"/>  
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
                                     <p:column style="width:20px">  
                                         <p:rowEditor />  
                                     </p:column>
                                     <f:facet name="footer">
                                         <p:outputPanel>
-                                            <p:commandButton id="btnBus" value="Ver Todo" update="usuariolist" action="#{usuariosController.buscar()}"/>
+                                            <p:commandButton id="btnBus" value="Ver Todo" update="usuariolist" action="#{proveedorController.buscar()}"/>
                                             <p:commandButton id="dec" value="Cerrar" onclick="dl_buscar.hide()" type="button" />
                                         </p:outputPanel>  
                                     </f:facet>                 
                                 </p:dataTable>  
 
                             </p:dialog>                                                                                                    
-                            </center>
                         </h:form>
+
                     </td>
                 </table>     
                 <!--Fin de estructuracion de contenido-->

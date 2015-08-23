@@ -58,6 +58,9 @@
                     <td>
 
                         <h:form enctype="multipart/form-data" prependId="false" id="formulario" >
+                            <p:remoteCommand name="buscarCategoriasScript" action="#{categoriaController.buscarCategorias()}" autoRun="true"/><!-- Ejecuta de entrada como un javascript en onload del body por autorun=true, carga datos de todas las categorias con actualizar pagina -->
+                            <p:remoteCommand name="buscarProveedorScript" action="#{everController.buscar()}"  autoRun="true"/><!-- Ejecuta de entrada como un javascript en onload del body por autorun=true, carga datos de todos los proveedores con actualizar pagina -->
+
                             <p:growl id="growl" showDetail="true" /><!-- Esto es para los globitos -->
                             <center>
                                 <p:focus context="panel1"/>

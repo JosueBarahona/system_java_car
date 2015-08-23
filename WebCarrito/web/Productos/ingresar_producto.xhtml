@@ -58,6 +58,9 @@
 
                         <h:form enctype="multipart/form-data" prependId="false" id="formulario" >
                             <p:growl id="growl" showDetail="true" /><!-- Esto es para los globitos -->
+                            <p:remoteCommand name="buscarCategoriasScript" action="#{categoriaController.buscarCategorias()}"  autoRun="true"/><!-- Ejecuta de entrada como un javascript en onload del body por autorun=true, carga datos de todas las categorias con actualizar pagina -->
+                            <p:remoteCommand name="buscarProveedorScript" action="#{everController.buscar()}" autoRun="true"/><!-- Ejecuta de entrada como un javascript en onload del body por autorun=true, carga datos de todos los proveedores con actualizar pagina -->
+
                             <p:remoteCommand name="hacerTodoNull" action="#{productoController.setAllNull()}"  autoRun="true"/>
 
                             <!--Reinicia la ruta de la imagen del producto para que este en blanco si hubo una cancelación de edicion y quedó reciduo-->
@@ -130,7 +133,7 @@
                                                              animation: normal; cursor: pointer; border: 1px solid #aaa " >
                                                 <f:ajax execute="@all" render="@form"/>
                                             </h:commandButton>
-                                            
+
                                             <!--p:commandButton value="Guardar" actionListener="" update="growl">
                                                 <p:confirm header="Confirmar" message="Desea Guardar?" icon="ui-icon-alert" />
                                                 <f:ajax execute="@all" render="@form"/>

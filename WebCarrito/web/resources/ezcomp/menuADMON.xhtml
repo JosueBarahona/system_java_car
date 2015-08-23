@@ -12,51 +12,35 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-
         <h:form>
             <p:menubar autoDisplay="true" >
-                <p:submenu label="Administración"  icon="ui-icon-document"  >  
-                    <p:separator />  
-                    <p:menuitem value="Salir" action="#{usuarioController.irURL()}">
-                        <f:setPropertyActionListener target="#{usuarioController.url}" value="../login_usuario.xhtml" />
-                    </p:menuitem>
-                </p:submenu>                      
+                <p:submenu label="Usuario" icon="ui-icon-person" >  
+                    
+
+                    <p:menuitem value="Crear" icon="ui-icon-disk" url="../Usuarios/ingresar_usuario_adm.xhtml"/>
+
+                    <p:menuitem value="Editar Usuario" icon="ui-icon-pencil" url="../Usuarios/usuario_edit.xhtml"/>
+
+                </p:submenu>
+
+                <p:submenu label="Productos" icon="ui-icon-cart" >  
+                   
+
+                    <p:menuitem value="Agrear Producto" icon="ui-icon-disk" url="../Productos/ingresar_producto.xhtml"/>
+
+                    <p:menuitem value="Editar Producto" icon="ui-icon-pencil" url="../Productos/buscar_producto.xhtml"/>
+                </p:submenu>
+
+                <p:submenu label="Proveedores" icon="ui-icon-contact" >  
+                      
+                    <p:menuitem value="Administrar Proveedor" icon="ui-icon-disk" url="../Proveedor/ingresar_proveedor.xhtml"/>
+                </p:submenu>
+                <p:submenu label="Categoria" icon="ui-icon-folder-collapsed" >  
+                     
+                    <p:menuitem value="Ingresar Nueva Categoria" icon="ui-icon-disk" url="../categoria/Categoria_producto.xhtml"/>
+                </p:submenu>
                 
-                <p:submenu label="Productos" icon="ui-icon ui-icon-gear" >  
-                    <p:separator />  
 
-                    <p:menuitem value="Clientes" />
-
-                    <p:menuitem value="Proveedores"/>
-
-                    <p:menuitem value="Categorías" />
-
-                    <p:menuitem value="Productos" />
-
-                    <p:menuitem value="Compras"/>
-                    <p:submenu label="Ventas" icon="ui-icon-contact">
-
-                        <p:menuitem value="Crédito fiscal"/>
-
-                        <p:menuitem value="Consumidor final"/>
-                        <p:submenu label="Ventas anuladas" icon="ui-icon-contact">
-
-                            <p:menuitem value="Crédito fiscal"/>
-
-                            <p:menuitem value="Consumidor final"/>
-                        </p:submenu>
-
-                    </p:submenu>
-                    <p:separator />
-                </p:submenu>
-                <p:submenu label="Usuario" icon="ui-icon ui-icon-gear" >  
-                    <p:separator />  
-
-                    <p:menuitem value="Crear" icon="ui-disk" />
-
-                    <p:menuitem value="Eliminar" icon="ui-icon-arrowrefresh-1-w"/>
-
-                </p:submenu>
                 <f:facet name="options">
                     <p:outputLabel value="Usuario: #{sessionScope.USUARIO}"/>   &nbsp;&nbsp;&nbsp;&nbsp;
                     <p:commandButton type="button" value="Cerrar Sesión" icon="ui-icon-extlink" action="#{loginController.logout()}" />

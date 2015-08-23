@@ -46,30 +46,33 @@
 
                         <h:form id="form">     
                             <p:growl id="growl" showDetail="true" />  
+
                             <p:fieldset legend="&nbsp;" toggleable="true" toggleSpeed="500" style="text-align: left">                                                     
-                                <p:panelGrid id="panel1" columns="2" style="width: 460px">  
+                                <center>                                
+                                    <p:panelGrid id="panel1" columns="2" style="width: 460px">  
 
-                                    <f:facet name="header">  
-                                        Login
-                                    </f:facet>  
+                                        <f:facet name="header">  
+                                            Login
+                                        </f:facet>  
 
-                                    <h:outputLabel  value="Nombre de Usuario:" />  
-                                    <p:inputText id="usuario" value="#{loginController.usuario}" required="true" label="usuario" size="20" />  
-                                    <h:outputLabel  value="Password:" />  
-                                    <p:password id="password" value="#{loginController.password}" required="true" label="password" size="20" />                                                              
-                                    <f:facet name="footer">
-                                        <p:row>
-                                            <p:column style="text-align: left!important">
-                                                <p:commandButton value="Login" action="#{loginController.login()}" 
-                                                                 update="form">
-                                                </p:commandButton>
-                                            </p:column>
-                                        </p:row>
-                                    </f:facet>  
+                                        <h:outputLabel  value="Nombre de Usuario:" />  
+                                        <p:inputText id="usuario" value="#{loginController.usuario}" required="true" label="usuario" size="20" />  
+                                        <h:outputLabel  value="Password:" />  
+                                        <p:password id="password" value="#{loginController.password}" required="true" label="password" size="20" />                                                              
+                                        <f:facet name="footer">
+                                            <p:row>
+                                                <p:column style="text-align: left!important">
+                                                    <p:commandButton value="Login" action="#{loginController.login()}" 
+                                                                     update="form">
+                                                    </p:commandButton>
+                                                </p:column>
+                                            </p:row>
+                                        </f:facet>  
 
-                                </p:panelGrid>  
-
+                                    </p:panelGrid>  
+                                </center>
                             </p:fieldset>      
+
                         </h:form>
 
                     </td>

@@ -58,7 +58,7 @@
                         <h:form enctype="multipart/form-data" prependId="false" id="formulario" >
                             <p:growl id="growlMessaje" showDetail="true" /><!-- Esto es para los globitos -->
                             <p:remoteCommand name="buscarProductosScript" action="#{productoController.buscar()}" update="productosTable" autoRun="true"/><!-- Ejecuta de entrada como un javascript en onload del body, carga datos de todos los productos con actualizar pagina -->
-                            <p:remoteCommand name="buscarCategoriasScript" action="#{categoriaController.buscar()}" update="productosTable" autoRun="true"/><!-- Ejecuta de entrada como un javascript en onload del body por autorun=true, carga datos de todas las categorias con actualizar pagina -->
+                            <p:remoteCommand name="buscarCategoriasScript" action="#{categoriaController.buscarCategorias()}" update="productosTable" autoRun="true"/><!-- Ejecuta de entrada como un javascript en onload del body por autorun=true, carga datos de todas las categorias con actualizar pagina -->
                             <p:remoteCommand name="buscarProveedorScript" action="#{everController.buscar()}" update="productosTable" autoRun="true"/><!-- Ejecuta de entrada como un javascript en onload del body por autorun=true, carga datos de todos los proveedores con actualizar pagina -->
                             <p:remoteCommand name="hacerTodoNull" action="#{productoController.setAllNull()}"  autoRun="true"/>
                             <!-- Si ocurre accion de guardao o modificado esto se encarga de cargar respectivo mensaje de globo -->
@@ -66,7 +66,7 @@
                                 <!--p:focus context="panel1"/-->
                                 <p:dataTable id="productosTable" var="productos" editable="false" value="#{productoController.listaProductos}"
                                              emptyMessage="No se encuentran datos"                                                                     
-                                             paginator="true" rows="10" widgetVar="productsTable"  >
+                                             paginator="true" rows="5" widgetVar="productsTable"  >
 
                                     <f:facet name="header">
                                         <p:outputPanel>

@@ -15,33 +15,10 @@
 
         <h:form>
             <p:menubar autoDisplay="true" style=" ">
-                <p:submenu label="Productos" icon="ui-icon ui-icon-gear" >  
-                    <p:separator />  
+                <p:submenu label="Productos" icon="ui-icon-cart" >  
+                    <p:menuitem value="Comprar Producto" icon="ui-icon-cart" url="../Productos/comprar_productos.xhtml"/>
 
-                    <p:menuitem value="Clientes" />
-
-                    <p:menuitem value="Proveedores"/>
-
-                    <p:menuitem value="Categorías" />
-
-                    <p:menuitem value="Productos" />
-
-                    <p:menuitem value="Compras"/>
-                    <p:submenu label="Ventas" icon="ui-icon-contact">
-
-                        <p:menuitem value="Crédito fiscal"/>
-
-                        <p:menuitem value="Consumidor final"/>
-                        <p:submenu label="Ventas anuladas" icon="ui-icon-contact">
-
-                            <p:menuitem value="Crédito fiscal"/>
-
-                            <p:menuitem value="Consumidor final"/>
-                        </p:submenu>
-
-                    </p:submenu>
-                    <p:separator />
-                </p:submenu>
+                                  </p:submenu>
                 <f:facet name="options">
                     <p:outputLabel value="Usuario: #{sessionScope.USUARIO}"/>
                     <p:commandButton type="button" value="Cerrar Sesión" icon="ui-icon-extlink" action="#{loginController.logout()}" />

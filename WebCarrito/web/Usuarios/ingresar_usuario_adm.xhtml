@@ -44,46 +44,47 @@
                     <td>
 
                         <h:form>
-                           <p:growl id="growl" showDetail="true" />  
-                                                    <p:fieldset legend="&nbsp;" toggleable="true" toggleSpeed="500" style="text-align: left">                                                     
-                                                        <p:panelGrid id="panel1" columns="2" style="width: 450px; " >  
-                                                            <f:facet name="header">  
-                                                                Nuevo Usuario
-                                                            </f:facet>  
+                            <p:growl id="growl" showDetail="true" />  
 
-                                                            <h:outputLabel  value="Nombre Completo:" />  
-                                                            <p:inputText id="nombre" value="#{usuarioController.itemNuevo.nombreUsuario}"  
-                                                                         label="Nombre" size="35" requiredMessage="Ingrese un nombre" required="true" />  
-                                                            <h:outputLabel  value="NickName Usuario:" />  
-                                                            <p:inputText id="NickName" value="#{usuarioController.itemNuevo.nicknameUsuario}"  
-                                                                         label="NickName" size="20" requiredMessage="Ingrese un nickname" required="true" />  
-                                                            <h:outputLabel  value="Correo Electronico:" />  
-                                                            <p:inputText id="email" value="#{usuarioController.itemNuevo.correoUsuario}"  
-                                                                         label="email" size="35" requiredMessage="Ingrese el correo" required="true" />  
-                                                            <h:outputLabel  value="Rol Usuario:" />  
-                                                            <p:selectOneMenu id="rol" value="#{usuarioController.itemNuevo.rolUsuario}" >
-                                                                <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
-                                                                <f:selectItem itemLabel="Usuario" itemValue="Usuario"/>
-                                                            </p:selectOneMenu>
-                                                            <h:outputLabel  value="Contraseña:" />  
-                                                            <p:password id="password" value="#{usuarioController.itemNuevo.passUsuario}" required="true" label="Password" size="20" />                                                              
-                                                            <f:facet name="footer">
-                                                                <p:row>
-                                                                    <h:commandButton id="btnEnviar"
-                                                                                     actionListener="#{usuarioController.agregar()}" 
-                                                                                     value="Guardar" onclick="return confirm('Desea Guardar?')"
-                                                                                     style=" height: 30px; font-size: 13px; margin: 2px; padding: 2px 10px 2px 10px; 
-                                                                                     animation: normal; cursor: pointer; border: 1px solid #aaa " >
-                                                                        <f:ajax execute="@all" render="@form"/>
-                                                                    </h:commandButton>
-                                                                    
-                                                                                                                                      
-                                                                </p:row>
-                                                            </f:facet>  
+                            <p:fieldset legend="&nbsp;" toggleable="true" toggleSpeed="500" style="text-align: left">                                                     
+                                <center>
+                                    <p:panelGrid id="panel1" columns="2" style="width: 450px; " >  
+                                        <f:facet name="header">  
+                                            Nuevo Usuario
+                                        </f:facet>  
 
-                                                        </p:panelGrid>  
+                                        <h:outputLabel  value="Nombre Completo:" />  
+                                        <p:inputText id="nombre" value="#{usuarioController.itemNuevo.nombreUsuario}"  
+                                                     label="Nombre" size="35" requiredMessage="Ingrese un nombre" required="true" />  
+                                        <h:outputLabel  value="NickName Usuario:" />  
+                                        <p:inputText id="NickName" value="#{usuarioController.itemNuevo.nicknameUsuario}"  
+                                                     label="NickName" size="20" requiredMessage="Ingrese un nickname" required="true" />  
+                                        <h:outputLabel  value="Correo Electronico:" />  
+                                        <p:inputText id="email" value="#{usuarioController.itemNuevo.correoUsuario}"  
+                                                     label="email" size="35" requiredMessage="Ingrese el correo" required="true" />  
+                                        <h:outputLabel  value="Rol Usuario:" />  
+                                        <p:selectOneMenu id="rol" value="#{usuarioController.itemNuevo.rolUsuario}" >
+                                            <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                                            <f:selectItem itemLabel="Usuario" itemValue="Usuario"/>
+                                        </p:selectOneMenu>
+                                        <h:outputLabel  value="Contraseña:" />  
+                                        <p:password id="password" value="#{usuarioController.itemNuevo.passUsuario}" required="true" label="Password" size="20" />                                                              
+                                        <f:facet name="footer">
+                                            <p:row>
+                                                <h:commandButton id="btnEnviar"
+                                                                 actionListener="#{usuarioController.agregar()}" 
+                                                                 value="Guardar" onclick="return confirm('Desea Guardar?')"
+                                                                 style=" height: 30px; font-size: 13px; margin: 2px; padding: 2px 10px 2px 10px; 
+                                                                 animation: normal; cursor: pointer; border: 1px solid #aaa " >
+                                                    <f:ajax execute="@all" render="@form"/>
+                                                </h:commandButton>
+                                            </p:row>
+                                        </f:facet>  
 
-                                                    </p:fieldset>         
+                                    </p:panelGrid>  
+                                </center>
+                            </p:fieldset>         
+
                         </h:form>
 
                     </td>
