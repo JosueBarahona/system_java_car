@@ -68,9 +68,10 @@
                             <p:fieldset legend="Categoría de Productos">
                                 <p:panelGrid columns="2" id="grupo1">
                                     <p:outputLabel style=" font-size: 12px; " value="Seleccione una Categoria: " for="categoria"/>
-                                    <p:selectOneMenu id="categoria"   value="" onchange="">
+                                    <p:selectOneMenu id="categoria"   value="#{productoController.categoria}">
+                                        <p:ajax listener="#{productoController.buscarPorCategoria()}" update="productosTable" />
                                         <f:selectItem itemLabel="Todas las Categorias" itemValue="#{null}" noSelectionOption="true" />
-                                        <f:selectItems value="#{categoriaController.lista2}" var="cat" itemLabel="#{cat.nombreCategoria}" />                                
+                                        <f:selectItems value="#{categoriaController.lista2}" var="cat" itemLabel="#{cat.nombreCategoria}" itemValue="#{cat.idCategoria}" />                                
                                     </p:selectOneMenu>
                                 </p:panelGrid>
                             </p:fieldset>
@@ -81,9 +82,9 @@
                                     <p:focus context="panel1" />
                                     <p:panelGrid id="panel1" columns="2" style="width: 750px; border-style:  solid; "   >  
                                         <p:dataGrid var="product" value="#{productoController.listaProductos}" columns="4" 
-                                                    rows="2" paginator="true" id="productosTable"
+                                                    rows="8" paginator="true" id="productosTable"
                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                    rowsPerPageTemplate="2,4,6" style=" width: 100%">
+                                                    rowsPerPageTemplate="4,8,12" style=" width: 100%">
 
                                             <f:facet name="header">
                                                 Productos a la Venta
@@ -96,7 +97,7 @@
                                                     <h:outputText value="Nombre: #{product.nombreProducto}" />
                                                     <h:outputText value="Descripción: #{product.descripcionProducto}" />
                                                     <h:outputText value="Precio: $#{product.precioProducto}" />
-                                                    <h:outputText value="Cantidad Disponible: $#{(product.cantidadProducto)-(carritoDetalleController.consultaUnidadesVendidas(product.idProducto))}" />
+                                                    <h:outputText value="Cantidad Disponible: #{(product.cantidadProducto)-(carritoDetalleController.consultaUnidadesVendidas(product.idProducto))}" />
 
 
                                                     <p:commandLink update=":formulario:productDetail" oncomplete="PF('productDialog').show()" title="Detalles">
@@ -116,17 +117,20 @@
                                             <h:graphicImage id="img" url="#{productoController.productos.imagenProducto}" height="160" width="190" /> 
                                         </f:facet>
 
-                                        <h:outputText value="Id:" />
-                                        <h:outputText value="" />
+                                        <h:outputText value="Id: " style=" font-weight: bold" />
+                                        <h:outputText value="#{productoController.productos.idProducto}" />
 
-                                        <h:outputText value="Year" />
-                                        <h:outputText value="" />
+                                        <h:outputText value="Nombre: " style=" font-weight: bold" />
+                                        <h:outputText value="#{productoController.productos.nombreProducto}" />
 
-                                        <h:outputText value="Color:" />
-                                        <h:outputText value="" />
+                                        <h:outputText value="Descripción: " style=" font-weight: bold" />
+                                        <h:outputText value="#{productoController.productos.descripcionProducto}" />
 
-                                        <h:outputText value="Price" />
-                                        <h:outputText value="$" />
+                                        <h:outputText value="Precio: " style=" font-weight: bold" />
+                                        <h:outputText value="$ #{productoController.productos.precioProducto}" />
+                                        
+                                        <h:outputText value="Categoría: " style=" font-weight: bold" />
+                                         <h:outputText value="#{productoController.productos.idCategoria.nombreCategoria}" />
                                     </p:panelGrid>
                                 </p:outputPanel>
                             </p:dialog>

@@ -41,6 +41,7 @@ public class productoController {
     private TProductos productos;//Para modificación de producto
     private String ruta;//Para ingreso de producto y modificacion de ruta de imagen
     private Integer unidadesDisponibles;//Para determinar cuantas unidades estan disponibles para validacion
+    private Integer categoria;//guarda el id de categoria seleccionada
 
     private DataModel<TProductos> listaProductos;//Listado de productos
 
@@ -56,6 +57,16 @@ public class productoController {
     private FileUploadEvent event1;
     private File result;
 
+    public Integer getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Integer categoria) {
+        this.categoria = categoria;
+    }
+
+    
+    
     public String getBusqueda() {
         return busqueda;
     }
@@ -170,7 +181,7 @@ public class productoController {
                 System.out.println("Error: " + e.getMessage());
             }
             return "buscar_producto.xhtml?faces-redirect=true";
-        }        
+        }
     }
     //////////////////////////////////////////
     //////////////////////////////////////////
@@ -185,7 +196,6 @@ public class productoController {
     //////////////////////////////////////////
     //////////////////////////////////////////
     //////////////////////////////////////////
-
     @PostConstruct
     public void init() {//metodo init que se ejecuta
         buscar();//Carga los datos de fondo una vez iniciado el facelet
@@ -198,7 +208,7 @@ public class productoController {
             ListDataModel<TProductos> modeloListaProveedor = new ListDataModel<TProductos>(lista);
             setListaProductos(modeloListaProveedor);
         } catch (Exception e) {
-            System.out.println("ERROR:   " + e.getMessage());
+            System.out.println("ERROR buscar():   " + e.getMessage());
         }
     }
 
@@ -209,7 +219,18 @@ public class productoController {
             ListDataModel<TProductos> modeloListaProveedor = new ListDataModel<TProductos>(lista);
             setListaProductos(modeloListaProveedor);
         } catch (Exception e) {
-            System.out.println("ERROR:   " + e.getMessage());
+            System.out.println("ERROR buscarPorNombre():   " + e.getMessage());
+        }
+    }
+
+    public void buscarPorCategoria() {
+        //System.out.println("Entra a productosController.buscarPorCategoria");
+        try {
+            List<TProductos> lista = productosDAO.getFindByCategoria(categoria);
+            ListDataModel<TProductos> modeloListaProveedor = new ListDataModel<TProductos>(lista);
+            setListaProductos(modeloListaProveedor);
+        } catch (Exception e) {
+            System.out.println("ERROR buscarPorCategoria():   " + e.getMessage());
         }
     }
 

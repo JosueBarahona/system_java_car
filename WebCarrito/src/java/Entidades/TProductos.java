@@ -40,7 +40,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TProductos.findByPrecioProducto", query = "SELECT t FROM TProductos t WHERE t.precioProducto = :precioProducto"),
     @NamedQuery(name = "TProductos.findByNombreProducto", query = "SELECT t FROM TProductos t WHERE t.nombreProducto = :nombreProducto"),
     @NamedQuery(name = "TProductos.findByDescripcionProducto", query = "SELECT t FROM TProductos t WHERE t.descripcionProducto = :descripcionProducto"),
+    @NamedQuery(name = "TProductos.findByIdCategoria", query = "SELECT t FROM TProductos t WHERE t.idCategoria.idCategoria = :categoria"),
     @NamedQuery(name = "TProductos.findByImagenProducto", query = "SELECT t FROM TProductos t WHERE t.imagenProducto = :imagenProducto")})
+//En el NamedQuery findByIdCategoria hay que hacer referencia a dos veces el idCategoria, ya que el primer idCategoria
+//hace referencia a toda la entidad TCategoria, y el segundo idCategoria hace referencia al valor entero de la llave de categoria
+/////////////////////////////////////
+//El NamedQuery findAllSum no funciona ya que el JPQL solo devuelve valores de tipo entidad, y ya que suma es de otro tipo ajeno
+//a la entidad no hay manera de retornarla usando JPQL, para sacar la sumatoria de los productos vendidos se hizo una 
+//consulta SQL Nativa, en el archivo carritoDatalleDAO se puede ver el procedimiento.
 public class TProductos implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
